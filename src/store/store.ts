@@ -1,9 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { baseApi } from '@services';
 
+import snackbarReducer from './snackbarSlice';
+
 export const store = configureStore({
     reducer: {
         [baseApi.reducerPath]: baseApi.reducer,
+        snackbar: snackbarReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(baseApi.middleware),
