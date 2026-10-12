@@ -1,6 +1,7 @@
 import type { Components } from '@mui/material/styles';
 
 // Local Font files
+import Anton from '@assets/fonts/anton/anton-regular.woff2';
 import Azonix from '@assets/fonts/azonix/AzonixRegular.woff2';
 import Inter300 from '@assets/fonts/inter/inter-300.woff2';
 import Inter500 from '@assets/fonts/inter/inter-500.woff2';
@@ -51,6 +52,13 @@ const fontFaceDeclarations = `
         font-style: normal;
         font-weight: 700;
         src: url(${Azonix}) format('woff2');
+    }
+    @font-face {
+        font-display: swap; 
+        font-family: 'Anton';
+        font-style: normal;
+        font-weight: 400;
+        src: url(${Anton}) format('woff2');
     }
     `;
 
