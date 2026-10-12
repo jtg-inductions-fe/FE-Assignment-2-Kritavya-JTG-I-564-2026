@@ -1,6 +1,7 @@
-import { AppBar, Box, Toolbar, Typography } from '@mui/material';
-import { theme } from '@theme';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+
+import { theme } from '@theme';
 
 const Navbar = () => (
     <AppBar
@@ -8,7 +9,7 @@ const Navbar = () => (
         color="secondary"
         elevation={1}
         sx={{
-            backgroundColor: 'transparent',
+            backgroundColor: 'background.default',
             py: theme.spacing(1.5),
             px: {
                 xs: theme.spacing(2),

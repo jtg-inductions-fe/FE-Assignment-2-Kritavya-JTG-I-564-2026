@@ -9,7 +9,7 @@ import Inter600 from '@assets/fonts/inter/inter-600.woff2';
 import Inter700 from '@assets/fonts/inter/inter-700.woff2';
 import InterRegular from '@assets/fonts/inter/inter-regular.woff2';
 
-// TODO: Add necessary font face declarations here
+// Added necessary font face declarations
 const fontFaceDeclarations = `
     @font-face {
         font-display: swap; 
@@ -64,11 +64,11 @@ const fontFaceDeclarations = `
 
 export const components: Components = {
     MuiCssBaseline: {
-        styleOverrides: {
-            html: {
-                fontSize: '62.5%',
-            },
-            fontFaceDeclarations,
-        },
+        styleOverrides: `
+            ${fontFaceDeclarations}
+            html {
+                font-size: 62.5%;
+            }
+        `,
     },
 };
