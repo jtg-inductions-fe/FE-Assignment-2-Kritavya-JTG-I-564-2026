@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Box } from '@mui/material';
 
 import { ROUTE_PATHS } from '@constant';
-import BaseLayout from '@layouts/BaseLayout';
+import { BaseLayout } from '@layouts';
 
 export const router = createBrowserRouter([
     {
