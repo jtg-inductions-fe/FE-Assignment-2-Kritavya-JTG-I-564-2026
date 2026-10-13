@@ -26,26 +26,6 @@ export const COLORS = {
     BORDER: {
         MAIN: '#D7D0C5',
     },
-    SUCCESS: {
-        MAIN: '#287A55',
-        LIGHT: '#429c62',
-        DARK: '#166534',
-    },
-    ERROR: {
-        MAIN: '#B93838',
-        LIGHT: '#c43d40',
-        DARK: '#991b1b',
-    },
-    WARNING: {
-        MAIN: '#b86a12',
-        LIGHT: '#b86a12',
-        DARK: '#b86a12',
-    },
-    INFO: {
-        MAIN: '#0284c7',
-        LIGHT: '#0284c7',
-        DARK: '#0284c7',
-    },
 };
 
 /**

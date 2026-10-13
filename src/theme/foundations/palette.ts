@@ -26,24 +26,4 @@ export const palette: PaletteOptions = {
         secondary: COLORS.TEXT.SECONDARY,
     },
     divider: COLORS.BORDER.MAIN,
-    success: {
-        main: COLORS.SUCCESS.MAIN,
-        light: COLORS.SUCCESS.LIGHT,
-        dark: COLORS.SUCCESS.DARK,
-    },
-    error: {
-        main: COLORS.ERROR.MAIN,
-        light: COLORS.ERROR.LIGHT,
-        dark: COLORS.ERROR.DARK,
-    },
-    info: {
-        main: COLORS.INFO.MAIN,
-        light: COLORS.INFO.LIGHT,
-        dark: COLORS.INFO.DARK,
-    },
-    warning: {
-        main: COLORS.WARNING.MAIN,
-        light: COLORS.WARNING.LIGHT,
-        dark: COLORS.WARNING.DARK,
-    },
 };
