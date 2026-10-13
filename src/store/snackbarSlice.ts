@@ -6,12 +6,14 @@ interface SnackbarState {
     open: boolean;
     message: string;
     severity: AlertColor;
+    id: number;
 }
 
 const initialState: SnackbarState = {
     open: false,
     message: '',
     severity: 'info',
+    id: 0,
 };
 
 const snackbarSlice = createSlice({
@@ -25,6 +27,7 @@ const snackbarSlice = createSlice({
                 severity: AlertColor;
             }>,
         ) => {
+            state.id += 1;
             state.open = true;
             state.message = action.payload.message;
             state.severity = action.payload.severity;

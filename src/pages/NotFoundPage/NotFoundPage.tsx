@@ -10,11 +10,7 @@ const NotFoundPage = () => {
     const navigate = useNavigate();
 
     return (
-        <PageLayout
-            image={NotFoundIllustration}
-            imageAlt="Illustration representing a page that could not be found"
-            container={true}
-        >
+        <PageLayout image={NotFoundIllustration} container={true}>
             <PageIntro
                 eyebrow="404 · Page not found"
                 heading={[

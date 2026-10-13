@@ -19,7 +19,6 @@ const PageLayout = ({
     return (
         <StyledPageLayout container={container}>
             <PageContentStack
-                alignItems="center"
                 justifyContent={hasAsideContent ? 'center' : 'flex-start'}
             >
                 <PageContentContainer hasAsideContent={hasAsideContent}>

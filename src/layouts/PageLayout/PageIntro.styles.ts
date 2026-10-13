@@ -52,7 +52,6 @@ export const PageHeadingLine = styled('span', {
         lineHeight: 1.2,
         letterSpacing: '0.015em',
         textTransform: 'uppercase',
-        whiteSpace: 'nowrap',
         color: outlined ? 'transparent' : palette.primary.dark,
         WebkitTextStroke: outlined ? `2px ${palette.primary.dark}` : 'initial',
 

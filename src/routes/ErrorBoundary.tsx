@@ -10,11 +10,7 @@ const ErrorBoundary = () => {
     const navigate = useNavigate();
 
     return (
-        <PageLayout
-            image={NotFoundIllustration}
-            imageAlt="Illustration representing an unexpected error"
-            container={true}
-        >
+        <PageLayout image={NotFoundIllustration} container={true}>
             <PageIntro
                 eyebrow="ERROR"
                 heading={[
