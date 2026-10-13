@@ -1,14 +1,18 @@
-import { StyledSnackbar, StyledSnackbarAlert } from './AppSnackbar.styles';
+import Snackbar from '@mui/material/Snackbar';
+
+import { StyledSnackbarAlert } from './AppSnackbar.styles';
 import type { AppSnackbarProps } from './AppSnackbar.types';
 
 const AppSnackbar = ({
+    id,
     open,
     message,
     severity,
     onClose,
     autoHideDuration = 4000,
 }: AppSnackbarProps) => (
-    <StyledSnackbar
+    <Snackbar
+        key={id}
         open={open}
         autoHideDuration={autoHideDuration}
         onClose={(_, reason) => {
@@ -16,10 +20,7 @@ const AppSnackbar = ({
                 onClose();
             }
         }}
-        anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-        }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
     >
         <StyledSnackbarAlert
             severity={severity}
@@ -28,7 +29,7 @@ const AppSnackbar = ({
         >
             {message}
         </StyledSnackbarAlert>
-    </StyledSnackbar>
+    </Snackbar>
 );
 
 export default AppSnackbar;

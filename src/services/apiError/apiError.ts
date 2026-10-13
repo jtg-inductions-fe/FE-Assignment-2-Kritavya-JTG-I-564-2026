@@ -27,7 +27,14 @@ export const getApiError = (error: unknown): ApiError => {
     if (typeof apiError.status === 'number') {
         const status = apiError.status;
 
-        if (status === 403 || status === 429) {
+        if (
+            status === 403 &&
+            typeof apiError.data === 'object' &&
+            apiError.data !== null &&
+            'message' in apiError.data &&
+            typeof apiError.data.message === 'string' &&
+            apiError.data.message.includes('API rate limit exceeded')
+        ) {
             return {
                 type: 'rate-limit',
                 message:
@@ -62,18 +69,24 @@ export const getApiError = (error: unknown): ApiError => {
         }
     }
 
-    if (apiError.status === 'FETCH_ERROR') {
+    if (
+        apiError.status === 'FETCH_ERROR' ||
+        apiError.status === 'TIMEOUT_ERROR'
+    ) {
         return {
             type: 'network',
             message:
-                'Unable to connect. Please check your internet connection.',
+                apiError.status === 'FETCH_ERROR'
+                    ? 'Unable to connect. Please check your internet connection.'
+                    : 'The request timed out. Please try again.',
         };
     }
 
-    if (apiError.status === 'TIMEOUT_ERROR') {
+    if (apiError.status === 'PARSING_ERROR') {
         return {
-            type: 'network',
-            message: 'The request timed out. Please try again.',
+            type: 'unknown',
+            message: 'Something went wrong. Please try again.',
+            status: apiError.originalStatus,
         };
     }
 

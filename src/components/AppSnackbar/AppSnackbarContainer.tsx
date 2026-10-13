@@ -6,12 +6,13 @@ import AppSnackbar from './AppSnackbar';
 const AppSnackbarContainer = () => {
     const dispatch = useAppDispatch();
 
-    const { open, message, severity } = useAppSelector(
+    const { id, open, message, severity } = useAppSelector(
         (state) => state.snackbar,
     );
 
     return (
         <AppSnackbar
+            id={id}
             open={open}
             message={message}
             severity={severity}

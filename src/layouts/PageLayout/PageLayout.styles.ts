@@ -13,7 +13,6 @@ export const StyledPageLayout = styled(Box, {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        boxSizing: 'border-box',
 
         [breakpoints.down('md')]: {
             paddingInline: spacing(4),
@@ -26,7 +25,6 @@ export const StyledPageLayout = styled(Box, {
 
         ...(container && {
             paddingTop: spacing(15),
-            minHeight: 'auto',
 
             [breakpoints.up('sm')]: {
                 paddingTop: 0,
@@ -42,9 +40,14 @@ export const PageContentStack = styled(Stack)(
         alignItems: 'center',
         gap: spacing(6),
 
-        [breakpoints.up('sm')]: { flexDirection: 'row', gap: spacing(2) },
+        [breakpoints.up('sm')]: {
+            flexDirection: 'row',
+            gap: spacing(2),
+        },
 
-        [breakpoints.up('md')]: { gap: spacing(6) },
+        [breakpoints.up('md')]: {
+            gap: spacing(6),
+        },
     }),
 );
 
@@ -53,12 +56,12 @@ export const PageContentContainer = styled(Box, {
 })<{ hasAsideContent: boolean }>(({ hasAsideContent }) => ({
     width: '100%',
     maxWidth: hasAsideContent ? 'none' : 960,
-    flex: hasAsideContent ? '1 1 45%' : '1 1 auto',
+    flex: hasAsideContent ? '1 1 55%' : '1 1 auto',
     minWidth: 0,
 }));
 
 export const PageAsideContainer = styled(Box)(({ theme: { breakpoints } }) => ({
-    flex: '1 1 55%',
+    flex: '1 1 45%',
     minWidth: 0,
     display: 'flex',
     flexDirection: 'column',
@@ -77,9 +80,7 @@ export const PageIllustration = styled('img')(({ theme: { breakpoints } }) => ({
     width: '100%',
     maxWidth: 420,
     maxHeight: 360,
-    height: 'auto',
     objectFit: 'contain',
-    objectPosition: 'center',
 
     [breakpoints.up('sm')]: {
         maxWidth: 520,
@@ -87,5 +88,8 @@ export const PageIllustration = styled('img')(({ theme: { breakpoints } }) => ({
         objectPosition: 'right center',
     },
 
-    [breakpoints.up('md')]: { maxWidth: 600, maxHeight: 560 },
+    [breakpoints.up('md')]: {
+        maxWidth: 600,
+        maxHeight: 560,
+    },
 }));
