@@ -1,7 +1,11 @@
-import Snackbar from '@mui/material/Snackbar';
+import Slide, { type SlideProps } from '@mui/material/Slide';
 
-import { StyledSnackbarAlert } from './AppSnackbar.styles';
+import { StyledSnackbar, StyledSnackbarAlert } from './AppSnackbar.styles';
 import type { AppSnackbarProps } from './AppSnackbar.types';
+
+const SlideFromRight = (props: SlideProps) => (
+    <Slide {...props} direction="left" />
+);
 
 const AppSnackbar = ({
     id,
@@ -9,9 +13,10 @@ const AppSnackbar = ({
     message,
     severity,
     onClose,
+    onExited,
     autoHideDuration = 4000,
 }: AppSnackbarProps) => (
-    <Snackbar
+    <StyledSnackbar
         key={id}
         open={open}
         autoHideDuration={autoHideDuration}
@@ -20,7 +25,12 @@ const AppSnackbar = ({
                 onClose();
             }
         }}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        TransitionProps={{ onExited }}
+        anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+        }}
+        TransitionComponent={SlideFromRight}
     >
         <StyledSnackbarAlert
             severity={severity}
@@ -29,7 +39,7 @@ const AppSnackbar = ({
         >
             {message}
         </StyledSnackbarAlert>
-    </Snackbar>
+    </StyledSnackbar>
 );
 
 export default AppSnackbar;

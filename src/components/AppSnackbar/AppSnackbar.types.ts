@@ -6,5 +6,6 @@ export interface AppSnackbarProps {
     severity: AlertColor;
     open: boolean;
     onClose: () => void;
+    onExited: () => void;
     autoHideDuration?: number;
 }

@@ -2,18 +2,20 @@ import type { AlertColor } from '@mui/material';
 
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-interface SnackbarState {
-    open: boolean;
+export interface SnackbarItem {
+    id: number;
     message: string;
     severity: AlertColor;
-    id: number;
+}
+
+interface SnackbarState {
+    snackbars: SnackbarItem[];
+    nextId: number;
 }
 
 const initialState: SnackbarState = {
-    open: false,
-    message: '',
-    severity: 'info',
-    id: 0,
+    snackbars: [],
+    nextId: 0,
 };
 
 const snackbarSlice = createSlice({
@@ -27,13 +29,18 @@ const snackbarSlice = createSlice({
                 severity: AlertColor;
             }>,
         ) => {
-            state.id += 1;
-            state.open = true;
-            state.message = action.payload.message;
-            state.severity = action.payload.severity;
+            state.snackbars.push({
+                id: state.nextId,
+                ...action.payload,
+            });
+
+            state.nextId += 1;
         },
-        hideSnackbar: (state) => {
-            state.open = false;
+
+        hideSnackbar: (state, action: PayloadAction<number>) => {
+            state.snackbars = state.snackbars.filter(
+                (snackbar) => snackbar.id !== action.payload,
+            );
         },
     },
 });
