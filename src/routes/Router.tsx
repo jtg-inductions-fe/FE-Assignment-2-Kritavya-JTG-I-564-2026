@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import { Box } from '@mui/material';
 
-import { ROUTE_PATHS } from '@constant';
+import { ROUTES } from '@constant';
 import { BaseLayout } from '@layouts';
 
 export const router = createBrowserRouter([
@@ -10,7 +10,7 @@ export const router = createBrowserRouter([
         element: <BaseLayout />,
         children: [
             {
-                path: ROUTE_PATHS.HOME,
+                path: ROUTES.HOME,
                 element: <Box>Hero Section</Box>,
             },
         ],

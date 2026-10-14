@@ -7,7 +7,7 @@ export const baseApi = createApi({
         baseUrl: API_BASE_URL,
         prepareHeaders: (headers) => {
             headers.set('Accept', 'application/vnd.github+json');
-            headers.set('X-GitHub-Api-Version', '2022-11-28');
+            headers.set('X-GitHub-Api-Version', '2026-03-10');
 
             return headers;
         },
