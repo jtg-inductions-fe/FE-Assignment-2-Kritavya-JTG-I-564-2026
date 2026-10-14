@@ -4,19 +4,30 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
 import NotFoundIllustration from '@assets/images/404-illustration.webp';
 import { AppButton } from '@components';
-import { PageIntro, PageLayout } from '@layouts';
+import { DesktopActions, PageIntro, PageLayout } from '@layouts';
 
-interface ErrorFallbackProps {
-    message?: string;
-}
+import { ErrorFallbackProps } from './ErrorFallback.types';
 
 const ErrorFallback = ({
     message = 'Something went wrong. Please try again.',
 }: ErrorFallbackProps) => {
     const navigate = useNavigate();
 
+    const homeButton = (
+        <AppButton
+            startIcon={<HomeOutlinedIcon />}
+            onClick={() => void navigate('/')}
+        >
+            Back to Home
+        </AppButton>
+    );
+
     return (
-        <PageLayout image={NotFoundIllustration} container>
+        <PageLayout
+            image={NotFoundIllustration}
+            container
+            mobileActions={homeButton}
+        >
             <PageIntro
                 eyebrow="ERROR"
                 heading={[
@@ -24,14 +35,7 @@ const ErrorFallback = ({
                     { text: 'WRONG', outlined: true },
                 ]}
                 description={message}
-                actions={
-                    <AppButton
-                        startIcon={<HomeOutlinedIcon />}
-                        onClick={() => void navigate('/')}
-                    >
-                        Back to Home
-                    </AppButton>
-                }
+                actions={<DesktopActions>{homeButton}</DesktopActions>}
             />
         </PageLayout>
     );

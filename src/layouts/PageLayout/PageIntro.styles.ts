@@ -78,3 +78,11 @@ export const PageDescription = styled(Typography)(
 export const PageActions = styled(Stack)(({ theme: { spacing } }) => ({
     marginTop: spacing(8),
 }));
+
+export const DesktopActions = styled(Box)(({ theme: { breakpoints } }) => ({
+    display: 'flex',
+
+    [breakpoints.down('sm')]: {
+        display: 'none',
+    },
+}));
