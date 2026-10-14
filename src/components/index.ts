@@ -8,3 +8,4 @@ export { default as GlobalErrorBoundary } from './GlobalErrorBoundary';
 export { PageIntro } from './PageIntro';
 export { DesktopActions } from './PageIntro';
 export type { PageHeadingLine, PageIntroProps } from './PageIntro';
+export { default as NavBar } from './Navbar';
