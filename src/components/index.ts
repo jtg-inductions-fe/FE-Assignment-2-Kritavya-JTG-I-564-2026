@@ -5,3 +5,4 @@ export { default as AppSnackbar, AppSnackbarContainer } from './AppSnackbar';
 export type { AppSnackbarProps } from './AppSnackbar';
 export { default as ErrorFallback } from './ErrorFallback';
 export { default as GlobalErrorBoundary } from './GlobalErrorBoundary';
+export { default as NavBar } from './Navbar';

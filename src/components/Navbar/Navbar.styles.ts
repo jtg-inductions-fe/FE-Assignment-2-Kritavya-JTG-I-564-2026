@@ -1,0 +1,52 @@
+import {
+    AppBar,
+    Avatar,
+    Button,
+    MenuItem,
+    Toolbar,
+    Typography,
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
+
+export const StyledAppBar = styled(AppBar)(
+    ({ theme: { palette, spacing } }) => ({
+        backgroundColor: palette.background.default,
+        color: palette.primary.dark,
+        padding: spacing(1, 2),
+        borderBottom: `2.5px solid ${palette.divider}`,
+    }),
+);
+
+export const StyledToolBar = styled(Toolbar)({
+    display: 'flex',
+    justifyContent: 'space-between',
+    minHeight: '56px !important',
+});
+
+export const StyledBrand = styled(Button)(
+    ({ theme: { palette, spacing } }) => ({
+        display: 'flex',
+        alignItems: 'center',
+        gap: spacing(1.5),
+        color: palette.primary.dark,
+        textTransform: 'none',
+        padding: 0,
+    }),
+);
+
+export const StyledBrandTitle = styled(Typography)(
+    ({ theme: { spacing } }) => ({
+        fontFamily: 'Azonix',
+        paddingTop: spacing(1.5),
+    }),
+);
+
+export const StyledMenuItem = styled(MenuItem)(({ theme: { spacing } }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    gap: spacing(1.5),
+}));
+
+export const StyledProfileAvatar = styled(Avatar)(({ theme: { palette } }) => ({
+    backgroundColor: palette.primary.dark,
+}));
