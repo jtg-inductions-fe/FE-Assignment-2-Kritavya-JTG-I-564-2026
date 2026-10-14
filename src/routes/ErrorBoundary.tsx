@@ -1,34 +1,17 @@
-import { useNavigate } from 'react-router-dom';
+import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-
-import NotFoundIllustration from '@assets/images/404-illustration.webp';
-import { AppButton } from '@components';
-import { PageIntro, PageLayout } from '@layouts';
+import { ErrorFallback } from '@components';
 
 const ErrorBoundary = () => {
-    const navigate = useNavigate();
+    const error = useRouteError();
 
-    return (
-        <PageLayout image={NotFoundIllustration} container={true}>
-            <PageIntro
-                eyebrow="ERROR"
-                heading={[
-                    { text: 'SOMETHING WENT' },
-                    { text: 'WRONG', outlined: true },
-                ]}
-                description="Something went wrong. Please try again."
-                actions={
-                    <AppButton
-                        startIcon={<HomeOutlinedIcon />}
-                        onClick={() => void navigate('/')}
-                    >
-                        Back to Home
-                    </AppButton>
-                }
-            />
-        </PageLayout>
-    );
+    const message = isRouteErrorResponse(error)
+        ? `${error.status} ${error.statusText}`
+        : error instanceof Error
+          ? error.message
+          : 'Something went wrong. Please try again.';
+
+    return <ErrorFallback message={message} />;
 };
 
 export default ErrorBoundary;
