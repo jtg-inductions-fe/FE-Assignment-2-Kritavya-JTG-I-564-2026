@@ -18,5 +18,6 @@ export interface PageLayoutProps {
     image?: string;
     imageAlt?: string;
     aside?: ReactNode;
+    mobileActions?: ReactNode;
     container?: boolean;
 }

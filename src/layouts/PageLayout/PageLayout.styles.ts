@@ -93,3 +93,16 @@ export const PageIllustration = styled('img')(({ theme: { breakpoints } }) => ({
         maxHeight: 560,
     },
 }));
+
+export const MobileActions = styled(Box)(
+    ({ theme: { breakpoints, spacing } }) => ({
+        display: 'none',
+
+        [breakpoints.down('sm')]: {
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%',
+            marginTop: spacing(10),
+        },
+    }),
+);

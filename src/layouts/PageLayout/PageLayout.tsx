@@ -1,4 +1,5 @@
 import {
+    MobileActions,
     PageAsideContainer,
     PageContentContainer,
     PageContentStack,
@@ -12,6 +13,7 @@ const PageLayout = ({
     image,
     imageAlt = '',
     aside,
+    mobileActions,
     container = false,
 }: PageLayoutProps) => {
     const hasAsideContent = Boolean(aside || image);
@@ -31,6 +33,10 @@ const PageLayout = ({
 
                         {image && (
                             <PageIllustration src={image} alt={imageAlt} />
+                        )}
+
+                        {mobileActions && (
+                            <MobileActions>{mobileActions}</MobileActions>
                         )}
                     </PageAsideContainer>
                 )}
