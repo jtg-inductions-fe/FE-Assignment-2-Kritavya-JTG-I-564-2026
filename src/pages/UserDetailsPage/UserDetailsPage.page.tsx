@@ -1,18 +1,10 @@
-import { useParams } from 'react-router-dom';
-
-import { Typography } from '@mui/material';
-
-import { PageLayout } from '@layouts';
+import { useUserDetailsPage } from '@hooks';
+import { UserDetailsLayout } from '@layouts';
 
 const UserDetailsPage = () => {
-    const { username } = useParams();
+    const page = useUserDetailsPage();
 
-    return (
-        <PageLayout>
-            <Typography variant="h4">User Details</Typography>
-            <Typography>GitHub username: {username}</Typography>
-        </PageLayout>
-    );
+    return <UserDetailsLayout {...page} />;
 };
 
 export default UserDetailsPage;
