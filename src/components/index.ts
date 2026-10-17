@@ -17,3 +17,6 @@ export type { AppAutocompleteProps } from './AppAutocomplete';
 
 export { UserSearchOption } from './UserSearchOption';
 export { UserSearchOptionSkeleton } from './UserSearchOption';
+
+export { UserDetailsCard } from './UserDetailsCard';
+export type { UserDetailsCardProps } from './UserDetailsCard';

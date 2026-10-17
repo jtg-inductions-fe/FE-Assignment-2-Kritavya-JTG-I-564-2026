@@ -8,3 +8,6 @@ export type {
     GitHubUserOption,
     GitHubUserResponse,
 } from './search';
+
+export { userApi, useGetUserDetailsQuery } from './user';
+export type { GitHubUserDetails } from './user';
