@@ -3,5 +3,12 @@ export { useAppDispatch, useAppSelector } from './hooks';
 
 export type { RootState, AppDispatch } from './store';
 
-export { showSnackbar, hideSnackbar, snackbarReducer } from './slices';
+export {
+    showSnackbar,
+    hideSnackbar,
+    snackbarReducer,
+    setSearchValue,
+    clearSearch,
+    searchReducer,
+} from './slices';
 export type { SnackbarItem } from './slices';

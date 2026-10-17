@@ -9,3 +9,10 @@ export { PageIntro } from './PageIntro';
 export { DesktopActions } from './PageIntro';
 export type { PageHeadingLine, PageIntroProps } from './PageIntro';
 export { default as NavBar } from './Navbar';
+export { default as HeroVisual } from './HeroVisual';
+
+export { default as UserSearchAutocomplete } from './UserSearchAutocomplete';
+export type {
+    SearchOptionItem,
+    UserSearchAutocompleteProps,
+} from './UserSearchAutocomplete';
