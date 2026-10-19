@@ -3,5 +3,5 @@ export { useAppDispatch, useAppSelector } from './hooks';
 
 export type { RootState, AppDispatch } from './store';
 
-export { showSnackbar, hideSnackbar } from './snackbarSlice';
-export { default as snackbarReducer } from './snackbarSlice';
+export { showSnackbar, hideSnackbar, snackbarReducer } from './slices';
+export type { SnackbarItem } from './slices';

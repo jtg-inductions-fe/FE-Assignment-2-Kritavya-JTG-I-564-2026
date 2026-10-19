@@ -4,8 +4,6 @@ import { styled } from '@mui/material/styles';
 
 export const StyledSnackbar = styled(Snackbar)({
     position: 'static',
-    transform: 'none',
-    width: '100%',
 });
 
 export const StyledSnackbarAlert = styled(Alert)({

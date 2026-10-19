@@ -2,11 +2,10 @@ import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const StyledSnackbarContainer = styled(Box)(
-    ({ theme: { spacing, zIndex, breakpoints } }) => ({
+    ({ theme: { spacing, breakpoints } }) => ({
         position: 'fixed',
         bottom: spacing(6),
         right: spacing(6),
-        zIndex: zIndex.snackbar,
         display: 'flex',
         flexDirection: 'column-reverse',
         alignItems: 'flex-end',
