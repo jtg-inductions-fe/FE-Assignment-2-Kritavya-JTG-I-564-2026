@@ -1,10 +1,15 @@
 {
     "compilerOptions": {
-        "baseUrl": "./src",
         "paths": {
-            "@assets/*": ["assets/*"],
-            "@constant": ["constant/index"],
-            "@theme": ["theme/index"]
+            "@assets/*": ["./src/assets/*"],
+            "@constant": ["./src/constant/index.ts"],
+            "@theme": ["./src/theme/index.ts"],
+            "@pages": ["./src/pages/index.ts"],
+            "@components": ["./src/components/index.ts"],
+            "@services": ["./src/services/index.ts"],
+            "@store": ["./src/store/index.ts"],
+            "@routes": ["./src/routes/index.ts"],
+            "@layouts": ["./src/layouts/index.ts"]
         }
     }
 }
