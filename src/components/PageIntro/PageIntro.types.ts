@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 export interface PageHeadingLine {
     text: string;
@@ -13,11 +13,6 @@ export interface PageIntroProps {
     children?: ReactNode;
 }
 
-export interface PageLayoutProps {
-    children: ReactNode;
-    image?: string;
-    imageAlt?: string;
-    aside?: ReactNode;
-    mobileActions?: ReactNode;
-    container?: boolean;
+export interface PageHeadingLineProps {
+    outlined?: boolean;
 }

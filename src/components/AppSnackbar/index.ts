@@ -1,4 +1,1 @@
-export { default } from './AppSnackbar';
-export { default as AppSnackbarContainer } from './AppSnackbarContainer';
-
-export type { AppSnackbarProps } from './AppSnackbar.types';
+export { default as AppSnackbar } from './AppSnackbar.component';

@@ -1,1 +1,1 @@
-export { default } from './GlobalErrorBoundary';
+export { default } from './GlobalErrorBoundary.component';

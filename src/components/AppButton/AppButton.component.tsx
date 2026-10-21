@@ -3,15 +3,18 @@ import type { AppButtonProps } from './AppButton.types';
 
 const AppButton = ({
     children,
+    type = 'button',
     onClick,
     startIcon,
+    endIcon,
     disabled = false,
-    variant = 'contained',
 }: AppButtonProps) => (
     <StyledAppButton
-        variant={variant}
+        type={type}
+        variant="contained"
         onClick={onClick}
         startIcon={startIcon}
+        endIcon={endIcon}
         disabled={disabled}
     >
         {children}

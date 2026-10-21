@@ -1,6 +1,8 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+import { PageHeadingLineProps } from './PageIntro.types';
+
 export const PageIntroContainer = styled(Stack)({
     width: '100%',
 });
@@ -36,10 +38,6 @@ export const PageHeading = styled('h1')(({ theme: { breakpoints } }) => ({
         rowGap: 1,
     },
 }));
-
-interface PageHeadingLineProps {
-    outlined?: boolean;
-}
 
 export const PageHeadingLine = styled('span', {
     shouldForwardProp: (prop) => prop !== 'outlined',

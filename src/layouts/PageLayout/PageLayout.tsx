@@ -6,7 +6,7 @@ import {
     PageIllustration,
     StyledPageLayout,
 } from './PageLayout.styles';
-import type { PageLayoutProps } from './types';
+import type { PageLayoutProps } from './PageLayout.types';
 
 const PageLayout = ({
     children,

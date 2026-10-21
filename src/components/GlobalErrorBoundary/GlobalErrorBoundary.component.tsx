@@ -1,15 +1,11 @@
-import { Component, type ReactNode } from 'react';
+import { Component } from 'react';
 
 import { ErrorFallback } from '@components';
 
-interface GlobalErrorBoundaryProps {
-    children: ReactNode;
-}
-
-interface GlobalErrorBoundaryState {
-    hasError: boolean;
-    errorMessage: string;
-}
+import {
+    GlobalErrorBoundaryProps,
+    GlobalErrorBoundaryState,
+} from './GlobalErrorBoundary.types';
 
 class GlobalErrorBoundary extends Component<
     GlobalErrorBoundaryProps,
@@ -26,10 +22,6 @@ class GlobalErrorBoundary extends Component<
             errorMessage: error.message,
         };
     }
-
-    // componentDidCatch(error: Error, info: ErrorInfo) {
-    //     console.error('Global error:', error, info);
-    // }
 
     render() {
         if (this.state.hasError) {

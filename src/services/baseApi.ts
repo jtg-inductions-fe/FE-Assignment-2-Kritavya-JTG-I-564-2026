@@ -1,4 +1,4 @@
-import { API_BASE_URL, API_HEADERS, API_TIMEOUT } from '@constant';
+import { API_BASE_URL, API_HEADERS, API_TIMEOUT, HTTP_STATUS } from '@constant';
 import {
     type BaseQueryFn,
     createApi,
@@ -28,7 +28,7 @@ const baseQuery: BaseQueryFn<
 > = async (args, api, extraOptions) => {
     const result = await rawBaseQuery(args, api, extraOptions);
 
-    if (result.error && result.error.status !== 404) {
+    if (result.error && result.error.status !== HTTP_STATUS.NOT_FOUND) {
         const error = getApiError(result.error);
 
         api.dispatch(

@@ -2,8 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import { ROUTES } from '@constant';
 import { BaseLayout } from '@layouts';
-import { HomePage } from '@pages';
-import { NotFoundPage } from '@pages';
+import { HomePage, NotFoundPage } from '@pages';
 
 import ErrorBoundary from './ErrorBoundary';
 

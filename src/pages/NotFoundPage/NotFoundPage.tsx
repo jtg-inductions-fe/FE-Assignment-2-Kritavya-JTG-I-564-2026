@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
 import NotFoundIllustration from '@assets/images/404-illustration.webp';
-import { AppButton } from '@components';
-import { PageIntro, PageLayout } from '@layouts';
-import { DesktopActions } from '@layouts';
+import { AppButton, DesktopActions, PageIntro } from '@components';
+import { PageLayout } from '@layouts';
 
 const NotFoundPage = () => {
     const navigate = useNavigate();

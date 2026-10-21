@@ -8,7 +8,7 @@ import {
     PageHeadingLine,
     PageIntroContainer,
 } from './PageIntro.styles';
-import type { PageIntroProps } from './types';
+import type { PageIntroProps } from './PageIntro.types';
 
 const PageIntro = ({
     eyebrow,

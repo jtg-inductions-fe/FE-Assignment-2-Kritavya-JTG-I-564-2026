@@ -7,13 +7,10 @@ export const StyledAppButton = styled(Button)(
         paddingInline: spacing(6),
         paddingBlock: spacing(2.5),
         textTransform: 'none',
+        backgroundColor: palette.primary.dark,
 
-        '&.MuiButton-contained': {
-            backgroundColor: palette.primary.dark,
-
-            '&:hover': {
-                backgroundColor: palette.primary.main,
-            },
+        '&:hover': {
+            backgroundColor: palette.primary.main,
         },
     }),
 );

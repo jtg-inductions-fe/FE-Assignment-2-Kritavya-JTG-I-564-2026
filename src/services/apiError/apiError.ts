@@ -1,3 +1,4 @@
+import { HTTP_STATUS } from '@constant';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 export type ApiErrorType =
@@ -28,7 +29,7 @@ export const getApiError = (error: unknown): ApiError => {
         const status = apiError.status;
 
         if (
-            status === 403 &&
+            status === HTTP_STATUS.FORBIDDEN &&
             typeof apiError.data === 'object' &&
             apiError.data !== null &&
             'message' in apiError.data &&
@@ -43,7 +44,7 @@ export const getApiError = (error: unknown): ApiError => {
             };
         }
 
-        if (status === 404) {
+        if (status === HTTP_STATUS.NOT_FOUND) {
             return {
                 type: 'not-found',
                 message: 'The requested GitHub resource could not be found.',
@@ -51,7 +52,7 @@ export const getApiError = (error: unknown): ApiError => {
             };
         }
 
-        if (status >= 500) {
+        if (status >= HTTP_STATUS.SERVER_ERROR_MIN) {
             return {
                 type: 'server',
                 message:
@@ -60,7 +61,7 @@ export const getApiError = (error: unknown): ApiError => {
             };
         }
 
-        if (status >= 400) {
+        if (status >= HTTP_STATUS.CLIENT_ERROR_MIN) {
             return {
                 type: 'client',
                 message: 'The request could not be completed.',

@@ -1,14 +1,12 @@
 import { RouterProvider } from 'react-router-dom';
 
-import { AppSnackbarContainer, GlobalErrorBoundary } from '@components';
+import { AppSnackbar } from '@components';
 import { router } from '@routes';
 
 const App = () => (
     <>
-        <GlobalErrorBoundary>
-            <RouterProvider router={router} />
-        </GlobalErrorBoundary>
-        <AppSnackbarContainer />
+        <RouterProvider router={router} />
+        <AppSnackbar />
     </>
 );
 

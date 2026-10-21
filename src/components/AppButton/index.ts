@@ -1,2 +1,2 @@
-export { default } from './AppButton';
+export { default } from './AppButton.component';
 export type { AppButtonProps } from './AppButton.types';
