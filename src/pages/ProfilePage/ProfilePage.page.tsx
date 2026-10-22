@@ -1,11 +1,5 @@
-import { Typography } from '@mui/material';
+import { ProfilePageContainer } from '@container';
 
-import { PageLayout } from '@layouts';
-
-const ProfilePage = () => (
-    <PageLayout>
-        <Typography variant="h4">This is the profile page</Typography>
-    </PageLayout>
-);
+const ProfilePage = () => <ProfilePageContainer />;
 
 export default ProfilePage;
