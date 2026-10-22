@@ -6,7 +6,7 @@ import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import XIcon from '@mui/icons-material/X';
 
-import type { UserDetailsCardProps } from '@components/UserDetailsCard/UserDetailsCard.types';
+import type { UserDetailsCardProps } from '@components';
 
 /**
  * Prepares profile information for the user details card.
