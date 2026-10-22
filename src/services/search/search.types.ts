@@ -1,13 +1,13 @@
 export interface GitHubUser {
     login: string;
     id: number;
-    avatar_url: string;
-    html_url: string;
+    avatarUrl: string;
+    htmlUrl: string;
     type: string;
 }
 
 export interface GitHubSearchResponse {
-    total_count: number;
-    incomplete_results: boolean;
+    totalCount: number;
+    incompleteResults: boolean;
     items: GitHubUser[];
 }
