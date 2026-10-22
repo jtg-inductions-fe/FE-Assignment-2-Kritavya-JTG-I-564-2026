@@ -99,10 +99,10 @@ const useUserSearch = ({
         }
 
         return currentData.pages.flatMap((page) =>
-            page.items.map(({ id, login, avatar_url, type }) => ({
+            page.items.map(({ id, login, avatarUrl, type }) => ({
                 id,
                 username: login,
-                avatarUrl: avatar_url,
+                avatarUrl: avatarUrl,
                 userType: type,
             })),
         );

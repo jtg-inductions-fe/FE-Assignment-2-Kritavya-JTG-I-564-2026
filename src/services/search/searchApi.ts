@@ -54,7 +54,7 @@ export const searchApi = baseApi.injectEndpoints({
                  */
                 getNextPageParam: (lastPage, _allPages, lastPageParam) => {
                     const totalPages = Math.min(
-                        Math.ceil(lastPage.total_count / USERS_PER_PAGE),
+                        Math.ceil(lastPage.totalCount / USERS_PER_PAGE),
                         MAX_PAGES,
                     );
 

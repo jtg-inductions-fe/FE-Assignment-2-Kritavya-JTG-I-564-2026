@@ -21,6 +21,26 @@ const rawBaseQuery = fetchBaseQuery({
     },
 });
 
+const toCamelCase = (key: string) =>
+    key.replace(/_([a-z])/g, (_, letter: string) => letter.toUpperCase());
+
+const transformKeysToCamelCase = (value: unknown): unknown => {
+    if (Array.isArray(value)) {
+        return value.map(transformKeysToCamelCase);
+    }
+
+    if (value !== null && typeof value === 'object') {
+        return Object.fromEntries(
+            Object.entries(value).map(([key, nestedValue]) => [
+                toCamelCase(key),
+                transformKeysToCamelCase(nestedValue),
+            ]),
+        );
+    }
+
+    return value;
+};
+
 const baseQuery: BaseQueryFn<
     string | FetchArgs,
     unknown,
@@ -37,6 +57,10 @@ const baseQuery: BaseQueryFn<
                 severity: 'error',
             }),
         );
+    }
+
+    if (result.data !== undefined) {
+        result.data = transformKeysToCamelCase(result.data);
     }
 
     return result;
