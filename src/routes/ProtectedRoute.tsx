@@ -1,10 +1,13 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
 import { ROUTES } from '@constant';
+import { useAppSelector } from '@store';
 
-import { RouteProps } from './types';
+const ProtectedRoute = () => {
+    const isAuthenticated = useAppSelector(
+        (state) => state.auth.isAuthenticated,
+    );
 
-const ProtectedRoute = ({ isAuthenticated }: RouteProps) => {
     if (!isAuthenticated) {
         return <Navigate to={ROUTES.LOGIN} replace />;
     }

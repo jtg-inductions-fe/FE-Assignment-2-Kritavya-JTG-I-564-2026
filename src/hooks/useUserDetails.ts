@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import { getApiError, useGetUserDetailsQuery } from '@services';
 import { mapGitHubUserDetails } from '@utils';
 
@@ -8,7 +10,7 @@ import { mapGitHubUserDetails } from '@utils';
  * @returns Profile data, loading state, and API error information.
  */
 const useUserDetails = (username: string) => {
-    const { data, isLoading, isFetching, isError, error } =
+    const { data, isLoading, isFetching, isError, error, refetch } =
         useGetUserDetailsQuery(username, {
             skip: !username,
         });
@@ -16,12 +18,20 @@ const useUserDetails = (username: string) => {
     const parsedError = isError ? getApiError(error) : null;
     const userDetails = mapGitHubUserDetails(data);
 
+    /**
+     * Retries fetching the user's profile details.
+     */
+    const handleRetry = useCallback(() => {
+        void refetch();
+    }, [refetch]);
+
     return {
         ...userDetails,
         isLoading: isLoading || isFetching,
         isNotFound: parsedError?.status === 404,
         isError,
         errorMessage: parsedError?.message ?? null,
+        handleRetry,
     };
 };
 

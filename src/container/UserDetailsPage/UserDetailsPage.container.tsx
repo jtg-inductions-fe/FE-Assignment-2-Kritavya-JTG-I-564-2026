@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Alert, Button, Typography } from '@mui/material';
+import { Alert, Button, Stack, Typography } from '@mui/material';
 
 import { UserDetailsCard } from '@components';
 import { UserDetailsCardSkeleton } from '@components';
@@ -13,20 +13,21 @@ import {
     MessageContainer,
 } from './UserDetailsPage.styles';
 
-const UserDetailsPageContainer = () => {
+interface UserDetailsPageContainerProps {
+    username?: string;
+}
+
+/**
+ * Displays a GitHub profile for the route username or the signed-in user.
+ */
+const UserDetailsPageContainer = ({
+    username,
+}: UserDetailsPageContainerProps) => {
     const navigate = useNavigate();
+    const page = useUserDetailsPage(username);
+    const { user } = page;
 
-    const {
-        username,
-        user,
-        isLoading,
-        isNotFound,
-        isError,
-        errorMessage,
-        memberSince,
-    } = useUserDetailsPage();
-
-    if (isNotFound) {
+    if (page.isNotFound) {
         return (
             <DetailsPageContainer>
                 <MessageContainer
@@ -37,8 +38,8 @@ const UserDetailsPageContainer = () => {
                     <Typography variant="h5">User not found</Typography>
 
                     <Typography variant="body1" color="text.secondary">
-                        {username
-                            ? `We couldn't find a GitHub user named "${username}".`
+                        {page.username
+                            ? `We couldn't find a GitHub user named "${page.username}".`
                             : 'The requested GitHub user could not be found.'}
                     </Typography>
 
@@ -53,7 +54,7 @@ const UserDetailsPageContainer = () => {
         );
     }
 
-    if (isError) {
+    if (page.isError) {
         return (
             <DetailsPageContainer>
                 <MessageContainer
@@ -62,22 +63,33 @@ const UserDetailsPageContainer = () => {
                     gap={2}
                 >
                     <Alert severity="error">
-                        {errorMessage ||
+                        {page.errorMessage ||
                             'Something went wrong while loading this profile.'}
                     </Alert>
 
-                    <Button
-                        variant="contained"
-                        onClick={() => void navigate(ROUTES.HOME)}
+                    <Stack
+                        direction="row"
+                        gap={2}
+                        flexWrap="wrap"
+                        justifyContent="center"
                     >
-                        Back to home
-                    </Button>
+                        <Button variant="contained" onClick={user.handleRetry}>
+                            Try again
+                        </Button>
+
+                        <Button
+                            variant="outlined"
+                            onClick={() => void navigate(ROUTES.HOME)}
+                        >
+                            Back to home
+                        </Button>
+                    </Stack>
                 </MessageContainer>
             </DetailsPageContainer>
         );
     }
 
-    if (isLoading) {
+    if (page.isLoading) {
         return (
             <DetailsPageContainer>
                 <UserDetailsCardSkeleton />
@@ -88,7 +100,7 @@ const UserDetailsPageContainer = () => {
     return (
         <DetailsPageContainer>
             <UserDetailsCard
-                {...mapUserDetailsToCardProps(user, memberSince)}
+                {...mapUserDetailsToCardProps(user, page.memberSince)}
             />
         </DetailsPageContainer>
     );
