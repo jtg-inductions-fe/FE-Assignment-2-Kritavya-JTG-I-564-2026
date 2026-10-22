@@ -3,14 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { Alert, Button, Typography } from '@mui/material';
 
 import { UserDetailsCard } from '@components';
+import { ROUTES } from '@constant';
 import { useUserDetailsPage } from '@hooks';
 
 import {
     DetailsPageContainer,
     MessageContainer,
-} from './UserDetailsLayout.styles';
+} from './UserDetailsPage.styles';
 
-const UserDetailsLayout = () => {
+const UserDetailsPageContainer = () => {
     const navigate = useNavigate();
 
     const {
@@ -37,7 +38,7 @@ const UserDetailsLayout = () => {
 
                     <Button
                         variant="contained"
-                        onClick={() => void navigate('/')}
+                        onClick={() => void navigate(ROUTES.HOME)}
                     >
                         Back to home
                     </Button>
@@ -57,7 +58,7 @@ const UserDetailsLayout = () => {
 
                     <Button
                         variant="contained"
-                        onClick={() => void navigate('/')}
+                        onClick={() => void navigate(ROUTES.HOME)}
                     >
                         Back to home
                     </Button>
@@ -89,4 +90,4 @@ const UserDetailsLayout = () => {
     );
 };
 
-export default UserDetailsLayout;
+export default UserDetailsPageContainer;

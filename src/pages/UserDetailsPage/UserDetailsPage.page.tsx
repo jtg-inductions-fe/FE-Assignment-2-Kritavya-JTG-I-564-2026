@@ -1,10 +1,5 @@
-import { useUserDetailsPage } from '@hooks';
-import { UserDetailsLayout } from '@layouts';
+import { UserDetailsPageContainer } from '@container';
 
-const UserDetailsPage = () => {
-    const page = useUserDetailsPage();
-
-    return <UserDetailsLayout {...page} />;
-};
+const UserDetailsPage = () => <UserDetailsPageContainer />;
 
 export default UserDetailsPage;

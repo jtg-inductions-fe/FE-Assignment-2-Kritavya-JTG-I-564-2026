@@ -1,5 +1,11 @@
 import { getApiError, useGetUserDetailsQuery } from '@services';
 
+/**
+ * Fetches a GitHub user's details and exposes the fields used by the UI.
+ *
+ * @param username - GitHub username to fetch.
+ * @returns Profile data, loading state, and API error information.
+ */
 const useUserDetails = (username: string) => {
     const { data, isLoading, isFetching, isError, error } =
         useGetUserDetailsQuery(username, {
@@ -9,7 +15,7 @@ const useUserDetails = (username: string) => {
     const parsedError = isError ? getApiError(error) : null;
 
     return {
-        avatarUrl: data?.avatar_url ?? '',
+        avatarUrl: data?.avatarUrl ?? '',
         username: data?.login ?? '',
         name: data?.name ?? null,
         bio: data?.bio ?? null,
@@ -17,12 +23,12 @@ const useUserDetails = (username: string) => {
         location: data?.location ?? null,
         followers: data?.followers ?? 0,
         following: data?.following ?? 0,
-        publicRepos: data?.public_repos ?? 0,
-        githubUrl: data?.html_url ?? '',
+        publicRepos: data?.publicRepos ?? 0,
+        githubUrl: data?.htmlUrl ?? '',
         blog: data?.blog ?? null,
         email: data?.email ?? null,
-        twitterUsername: data?.twitter_username ?? null,
-        createdAt: data?.created_at ?? null,
+        twitterUsername: data?.twitterUsername ?? null,
+        createdAt: data?.createdAt ?? null,
         isLoading: isLoading || isFetching,
         isNotFound: parsedError?.status === 404,
         isError,
