@@ -15,3 +15,6 @@ export type {
     SearchOptionItem,
     UserSearchAutocompleteProps,
 } from './UserSearchAutocomplete';
+
+export { UserDetailsCard } from './UserDetailsCard';
+export type { UserDetailsCardProps } from './UserDetailsCard';
