@@ -1,4 +1,10 @@
-import { API_BASE_URL, API_HEADERS, API_TIMEOUT, HTTP_STATUS } from '@constant';
+import {
+    API_BASE_URL,
+    API_HEADERS,
+    API_TIMEOUT,
+    HTTP_STATUS,
+    STORAGE_KEYS,
+} from '@constant';
 import {
     type BaseQueryFn,
     createApi,
@@ -16,6 +22,15 @@ const rawBaseQuery = fetchBaseQuery({
     prepareHeaders: (headers) => {
         headers.set('Accept', API_HEADERS.ACCEPT);
         headers.set('X-GitHub-Api-Version', API_HEADERS.VERSION);
+
+        try {
+            const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+            if (token && !headers.has('Authorization')) {
+                headers.set('Authorization', `Bearer ${token}`);
+            }
+        } catch {
+            // Ignore localStorage access issues
+        }
 
         return headers;
     },

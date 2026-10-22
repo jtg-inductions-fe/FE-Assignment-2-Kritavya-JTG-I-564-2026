@@ -1,13 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { baseApi } from '@services';
 
-import { searchReducer, snackbarReducer } from './slices';
+import { authReducer, searchReducer, snackbarReducer } from './slices';
 
 export const store = configureStore({
     reducer: {
         [baseApi.reducerPath]: baseApi.reducer,
         snackbar: snackbarReducer,
         search: searchReducer,
+        auth: authReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(baseApi.middleware),

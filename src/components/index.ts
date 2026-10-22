@@ -18,3 +18,6 @@ export type {
 
 export { UserDetailsCard } from './UserDetailsCard';
 export type { UserDetailsCardProps } from './UserDetailsCard';
+
+export { default as LoginCard } from './LoginCard';
+export type { LoginCardProps } from './LoginCard';

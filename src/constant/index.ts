@@ -13,3 +13,5 @@ export {
     MIN_QUERY_LENGTH,
     DEBOUNCE_DELAY,
 } from './search';
+
+export { STORAGE_KEYS, GITHUB_PAT_DOCS_URL } from './auth';

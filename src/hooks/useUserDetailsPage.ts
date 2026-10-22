@@ -3,13 +3,17 @@ import { useParams } from 'react-router-dom';
 import useUserDetails from './useUserDetails';
 
 /**
- * Provides the route username and formatted profile data for the page.
+ * Provides profile data for the route username or an explicitly supplied username.
  *
+ * @param usernameOverride - Optional username for the signed-in profile page.
  * @returns Profile data, loading/error states, and member-since date.
  */
-const useUserDetailsPage = () => {
-    const { username = '' } = useParams<{ username: string }>();
+const useUserDetailsPage = (usernameOverride?: string) => {
+    const { username: routeUsername } = useParams<{
+        username: string;
+    }>();
 
+    const username = usernameOverride ?? routeUsername ?? '';
     const user = useUserDetails(username);
 
     const memberSince = user.createdAt

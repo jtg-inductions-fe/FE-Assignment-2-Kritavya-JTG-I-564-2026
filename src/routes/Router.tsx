@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
                 element: <UserDetailsPage />,
             },
             {
-                element: <PublicRoute isAuthenticated={false} />,
+                element: <PublicRoute />,
                 children: [
                     {
                         path: ROUTES.LOGIN,
@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
                 ],
             },
             {
-                element: <ProtectedRoute isAuthenticated={false} />,
+                element: <ProtectedRoute />,
                 children: [
                     {
                         path: ROUTES.PROFILE,
