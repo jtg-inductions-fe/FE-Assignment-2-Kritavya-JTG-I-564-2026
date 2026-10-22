@@ -30,11 +30,6 @@ const Navbar = ({
 
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-    const handleLogout = () => {
-        setAnchorEl(null);
-        onLogout?.();
-    };
-
     return (
         <StyledAppBar position="sticky" elevation={0}>
             <StyledToolBar>
@@ -92,7 +87,12 @@ const Navbar = ({
                                 My Profile
                             </StyledMenuItem>
 
-                            <StyledMenuItem onClick={handleLogout}>
+                            <StyledMenuItem
+                                onClick={() => {
+                                    setAnchorEl(null);
+                                    onLogout?.();
+                                }}
+                            >
                                 <LogoutIcon fontSize="small" />
                                 Logout
                             </StyledMenuItem>

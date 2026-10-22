@@ -1,3 +1,3 @@
 export interface RouteProps {
-    isAuthenticated: boolean;
+    isAuthenticated?: boolean;
 }
