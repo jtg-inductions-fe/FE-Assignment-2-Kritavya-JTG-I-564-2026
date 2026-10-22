@@ -9,6 +9,7 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { IconButton, Menu, Tooltip, useMediaQuery } from '@mui/material';
 
 import { AppButton } from '@components';
+import { ROUTES } from '@constant';
 
 import {
     StyledAppBar,
@@ -33,7 +34,7 @@ const Navbar = ({
     return (
         <StyledAppBar position="sticky" elevation={0}>
             <StyledToolBar>
-                <StyledBrand onClick={() => void navigate('/')}>
+                <StyledBrand onClick={() => void navigate(ROUTES.HOME)}>
                     <GitHubIcon fontSize="large" />
                     <StyledBrandTitle variant="h4">
                         GitHub Explorer
@@ -42,7 +43,7 @@ const Navbar = ({
 
                 {!isAuthenticated ? (
                     <AppButton
-                        onClick={() => void navigate('/login')}
+                        onClick={() => void navigate(ROUTES.LOGIN)}
                         startIcon={isDesktop ? <GitHubIcon /> : undefined}
                     >
                         {isDesktop ? 'Sign in with GitHub' : 'Sign In'}
@@ -80,7 +81,7 @@ const Navbar = ({
                             <StyledMenuItem
                                 onClick={() => {
                                     setAnchorEl(null);
-                                    void navigate('/profile');
+                                    void navigate(ROUTES.PROFILE);
                                 }}
                             >
                                 <PersonOutlineIcon fontSize="small" />
