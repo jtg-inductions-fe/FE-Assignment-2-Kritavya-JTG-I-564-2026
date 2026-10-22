@@ -1,10 +1,6 @@
-import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
-import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
-import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import XIcon from '@mui/icons-material/X';
+
+import { useUserDetailsCard } from '@hooks';
 
 import UserDetailsCardSkeleton from './UserDetailsCard.skeleton';
 import {
@@ -30,87 +26,20 @@ import {
 } from './UserDetailsCard.styles';
 import type { UserDetailsCardProps } from './UserDetailsCard.types';
 
-const UserDetailsCard = ({
-    loading = false,
-    avatarUrl,
-    username,
-    name,
-    bio,
-    followers,
-    following,
-    publicRepos,
-    location,
-    company,
-    blog,
-    email,
-    twitterUsername,
-    memberSince,
-    githubUrl,
-}: UserDetailsCardProps) => {
+/**
+ * Displays a GitHub user's profile information and statistics.
+ *
+ * @param props - The user's profile details and loading state.
+ * @returns The profile card or its loading skeleton.
+ */
+const UserDetailsCard = (props: UserDetailsCardProps) => {
+    const { loading = false, avatarUrl, username } = props;
+
+    const { displayName, bio, stats, metadata } = useUserDetailsCard(props);
+
     if (loading) {
         return <UserDetailsCardSkeleton />;
     }
-
-    const stats = [
-        { label: 'Repositories', value: publicRepos },
-        { label: 'Followers', value: followers },
-        { label: 'Following', value: following },
-    ];
-
-    const website = blog?.trim();
-
-    const websiteUrl = website
-        ? /^https?:\/\//i.test(website)
-            ? website
-            : `https://${website}`
-        : undefined;
-
-    const twitterHandle = twitterUsername?.trim().replace(/^@/, '');
-
-    const metadata = [
-        {
-            label: 'Location',
-            value: location?.trim() || 'Not available',
-            icon: LocationOnOutlinedIcon,
-        },
-        {
-            label: 'Company',
-            value: company?.trim() || 'Not available',
-            icon: BusinessOutlinedIcon,
-        },
-        {
-            label: 'Website',
-            value: website || 'Not available',
-            href: websiteUrl,
-            external: true,
-            icon: LanguageOutlinedIcon,
-        },
-        {
-            label: 'Email',
-            value: email?.trim() || 'Not available',
-            href: email?.trim() ? `mailto:${email.trim()}` : undefined,
-            icon: AlternateEmailOutlinedIcon,
-        },
-        {
-            label: 'X',
-            value: twitterHandle ? `@${twitterHandle}` : 'Not available',
-            href: twitterHandle ? `https://x.com/${twitterHandle}` : undefined,
-            external: true,
-            icon: XIcon,
-        },
-        {
-            label: 'Member since',
-            value: memberSince || 'Not available',
-            icon: AccessTimeOutlinedIcon,
-        },
-        {
-            label: 'GitHub',
-            value: githubUrl ? 'View profile' : 'Not available',
-            href: githubUrl || undefined,
-            external: true,
-            icon: GitHubIcon,
-        },
-    ];
 
     return (
         <ProfileCard>
@@ -128,17 +57,13 @@ const UserDetailsCard = ({
                     )}
                 </ProfileImageContainer>
 
-                <ProfileName variant="h3">
-                    {name?.trim() || username}
-                </ProfileName>
+                <ProfileName variant="h3">{displayName}</ProfileName>
 
                 <ProfileUsername variant="h5">@{username}</ProfileUsername>
             </ProfileLeft>
 
             <ProfileInformation>
-                {bio?.trim() && (
-                    <ProfileBio variant="h4">{bio.trim()}</ProfileBio>
-                )}
+                {bio && <ProfileBio variant="h4">{bio}</ProfileBio>}
 
                 <ProfileStats>
                     {stats.map(({ label, value }) => (
