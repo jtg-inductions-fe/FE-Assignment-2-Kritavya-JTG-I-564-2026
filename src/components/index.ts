@@ -9,3 +9,5 @@ export { PageIntro } from './PageIntro';
 export { DesktopActions } from './PageIntro';
 export type { PageHeadingLine, PageIntroProps } from './PageIntro';
 export { default as NavBar } from './Navbar';
+export type { NavigationBarProps } from './Navbar';
+export { default as AppMenu } from './AppMenu';

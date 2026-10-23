@@ -1,11 +1,4 @@
-import {
-    AppBar,
-    Avatar,
-    Button,
-    MenuItem,
-    Toolbar,
-    Typography,
-} from '@mui/material';
+import { AppBar, Avatar, Button, Toolbar, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const StyledAppBar = styled(AppBar)(
@@ -35,17 +28,15 @@ export const StyledBrand = styled(Button)(
 );
 
 export const StyledBrandTitle = styled(Typography)(
-    ({ theme: { spacing } }) => ({
+    ({ theme: { spacing, breakpoints } }) => ({
         fontFamily: 'Azonix',
         paddingTop: spacing(1.5),
+
+        [breakpoints.down('sm')]: {
+            display: 'none',
+        },
     }),
 );
-
-export const StyledMenuItem = styled(MenuItem)(({ theme: { spacing } }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    gap: spacing(1.5),
-}));
 
 export const StyledProfileAvatar = styled(Avatar)(({ theme: { palette } }) => ({
     backgroundColor: palette.primary.dark,

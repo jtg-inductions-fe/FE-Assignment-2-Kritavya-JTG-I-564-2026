@@ -1,21 +1,14 @@
-import { useState } from 'react';
-
-import { useNavigate } from 'react-router-dom';
-
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import LogoutIcon from '@mui/icons-material/Logout';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import { IconButton, Menu, Tooltip, useMediaQuery } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 
-import { AppButton } from '@components';
-import { ROUTES } from '@constant';
+import { AppButton, AppMenu } from '@components';
+import { useNavbar } from '@hooks';
 
 import {
     StyledAppBar,
     StyledBrand,
     StyledBrandTitle,
-    StyledMenuItem,
     StyledProfileAvatar,
     StyledToolBar,
 } from './Navbar.styles';
@@ -26,16 +19,22 @@ const Navbar = ({
     avatarUrl,
     onLogout,
 }: NavigationBarProps) => {
-    const navigate = useNavigate();
-    const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('md'));
-
-    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+    const {
+        isDesktop,
+        anchorEl,
+        setAnchorEl,
+        menuItems,
+        handleHomeClick,
+        handleLoginClick,
+        handleMenuClose,
+    } = useNavbar({ onLogout });
 
     return (
         <StyledAppBar position="sticky" elevation={0}>
             <StyledToolBar>
-                <StyledBrand onClick={() => void navigate(ROUTES.HOME)}>
+                <StyledBrand onClick={handleHomeClick}>
                     <GitHubIcon fontSize="large" />
+
                     <StyledBrandTitle variant="h4">
                         GitHub Explorer
                     </StyledBrandTitle>
@@ -43,7 +42,7 @@ const Navbar = ({
 
                 {!isAuthenticated ? (
                     <AppButton
-                        onClick={() => void navigate(ROUTES.LOGIN)}
+                        onClick={handleLoginClick}
                         startIcon={isDesktop ? <GitHubIcon /> : undefined}
                     >
                         {isDesktop ? 'Sign in with GitHub' : 'Sign In'}
@@ -65,39 +64,11 @@ const Navbar = ({
                             </IconButton>
                         </Tooltip>
 
-                        <Menu
+                        <AppMenu
                             anchorEl={anchorEl}
-                            open={Boolean(anchorEl)}
-                            onClose={() => setAnchorEl(null)}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'right',
-                            }}
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                        >
-                            <StyledMenuItem
-                                onClick={() => {
-                                    setAnchorEl(null);
-                                    void navigate(ROUTES.PROFILE);
-                                }}
-                            >
-                                <PersonOutlineIcon fontSize="small" />
-                                My Profile
-                            </StyledMenuItem>
-
-                            <StyledMenuItem
-                                onClick={() => {
-                                    setAnchorEl(null);
-                                    onLogout?.();
-                                }}
-                            >
-                                <LogoutIcon fontSize="small" />
-                                Logout
-                            </StyledMenuItem>
-                        </Menu>
+                            onClose={handleMenuClose}
+                            items={menuItems}
+                        />
                     </>
                 )}
             </StyledToolBar>
