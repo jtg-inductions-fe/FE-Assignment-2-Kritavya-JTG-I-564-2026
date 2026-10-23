@@ -17,11 +17,11 @@ export const StyledAppBar = styled(AppBar)(
     }),
 );
 
-export const StyledToolBar = styled(Toolbar)({
+export const StyledToolBar = styled(Toolbar)(({ theme: { spacing } }) => ({
     display: 'flex',
     justifyContent: 'space-between',
-    minHeight: '56px !important',
-});
+    minHeight: spacing(14),
+}));
 
 export const StyledBrand = styled(Button)(
     ({ theme: { palette, spacing } }) => ({
