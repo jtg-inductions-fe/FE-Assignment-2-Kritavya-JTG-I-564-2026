@@ -7,8 +7,10 @@ import { LoginSection } from './LoginPage.styles';
 
 const LoginPageContainer = () => {
     const {
-        username,
-        token,
+        usernameField,
+        tokenField,
+        usernameError,
+        tokenError,
         showToken,
         isLoading,
         errorMessage,
@@ -35,8 +37,10 @@ const LoginPageContainer = () => {
             </PageLayout>
 
             <LoginCard
-                username={username}
-                token={token}
+                usernameField={usernameField}
+                tokenField={tokenField}
+                usernameError={usernameError}
+                tokenError={tokenError}
                 showToken={showToken}
                 isLoading={isLoading}
                 errorMessage={errorMessage}

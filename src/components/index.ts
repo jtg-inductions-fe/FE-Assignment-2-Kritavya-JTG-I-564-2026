@@ -23,4 +23,4 @@ export type { UserDetailsCardProps } from './UserDetailsCard';
 export { UserDetailsCardSkeleton } from './UserDetailsCard';
 
 export { default as LoginCard } from './LoginCard';
-export type { LoginCardProps } from './LoginCard';
+export type { LoginFormValues, LoginCardProps } from './LoginCard';

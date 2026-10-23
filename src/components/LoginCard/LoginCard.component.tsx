@@ -35,8 +35,10 @@ import {
 import type { LoginCardProps } from './LoginCard.types';
 
 const LoginCard = ({
-    username,
-    token,
+    usernameField,
+    tokenField,
+    usernameError,
+    tokenError,
     showToken,
     isLoading,
     errorMessage,
@@ -70,14 +72,18 @@ const LoginCard = ({
 
                     <FieldGroup>
                         <FieldLabel variant="body2">GitHub Username</FieldLabel>
+
                         <StyledTextField
+                            {...usernameField}
                             fullWidth
                             placeholder="e.g. torvalds"
-                            value={username}
                             disabled={isLoading}
-                            onChange={(event) =>
-                                onUsernameChange(event.target.value)
-                            }
+                            error={Boolean(usernameError)}
+                            helperText={usernameError}
+                            onChange={(event) => {
+                                void usernameField.onChange(event);
+                                onUsernameChange();
+                            }}
                             slotProps={{
                                 input: {
                                     startAdornment: (
@@ -95,14 +101,17 @@ const LoginCard = ({
                             Personal Access Token
                         </FieldLabel>
                         <StyledTextField
+                            {...tokenField}
                             fullWidth
                             type={showToken ? 'text' : 'password'}
                             placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-                            value={token}
                             disabled={isLoading}
-                            onChange={(event) =>
-                                onTokenChange(event.target.value)
-                            }
+                            error={Boolean(tokenError)}
+                            helperText={tokenError}
+                            onChange={(event) => {
+                                void tokenField.onChange(event);
+                                onTokenChange();
+                            }}
                             slotProps={{
                                 input: {
                                     startAdornment: (
@@ -113,6 +122,7 @@ const LoginCard = ({
                                     endAdornment: (
                                         <InputAdornment position="end">
                                             <IconButton
+                                                type="button"
                                                 onClick={onToggleShowToken}
                                                 edge="end"
                                                 size="small"

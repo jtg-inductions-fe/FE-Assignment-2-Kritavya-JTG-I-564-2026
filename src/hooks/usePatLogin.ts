@@ -1,32 +1,49 @@
-import { type FormEvent, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
+import type { LoginFormValues } from '@components';
 import { GITHUB_PAT_DOCS_URL, ROUTES } from '@constant';
 import { useLazyVerifyPatTokenQuery } from '@services';
 import { setCredentials, showSnackbar, useAppDispatch } from '@store';
 
-/**
- * Handles GitHub Personal Access Token authentication and login form state.
- */
 const usePatLogin = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const [username, setUsername] = useState('');
-    const [token, setToken] = useState('');
     const [showToken, setShowToken] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<LoginFormValues>({
+        defaultValues: {
+            username: '',
+            token: '',
+        },
+        mode: 'onSubmit',
+    });
+
     const [verifyPatToken, { isFetching }] = useLazyVerifyPatTokenQuery();
 
-    const handleUsernameChange = useCallback((value: string) => {
-        setUsername(value);
+    const usernameField = register('username', {
+        validate: (value) =>
+            Boolean(value.trim()) || 'Please enter your GitHub username.',
+    });
+
+    const tokenField = register('token', {
+        validate: (value) =>
+            Boolean(value.trim()) || 'Please enter your Personal Access Token.',
+    });
+
+    const handleUsernameChange = useCallback(() => {
         setErrorMessage(null);
     }, []);
 
-    const handleTokenChange = useCallback((value: string) => {
-        setToken(value);
+    const handleTokenChange = useCallback(() => {
         setErrorMessage(null);
     }, []);
 
@@ -38,22 +55,12 @@ const usePatLogin = () => {
         window.open(GITHUB_PAT_DOCS_URL, '_blank', 'noopener,noreferrer');
     }, []);
 
-    const handleSubmit = useCallback(
-        async (event: FormEvent<HTMLFormElement>) => {
-            event.preventDefault();
+    const handleLogin = useCallback(
+        async ({ username, token }: LoginFormValues) => {
+            setErrorMessage(null);
 
             const trimmedUsername = username.trim();
             const trimmedToken = token.trim();
-
-            if (!trimmedUsername) {
-                setErrorMessage('Please enter your GitHub username.');
-                return;
-            }
-
-            if (!trimmedToken) {
-                setErrorMessage('Please enter your Personal Access Token.');
-                return;
-            }
 
             try {
                 const authenticatedUser =
@@ -91,12 +98,14 @@ const usePatLogin = () => {
                 );
             }
         },
-        [dispatch, navigate, token, username, verifyPatToken],
+        [dispatch, navigate, verifyPatToken],
     );
 
     return {
-        username,
-        token,
+        usernameField,
+        tokenField,
+        usernameError: errors.username?.message,
+        tokenError: errors.token?.message,
         showToken,
         isLoading: isFetching,
         errorMessage,
@@ -104,7 +113,7 @@ const usePatLogin = () => {
         handleUsernameChange,
         handleTokenChange,
         handleToggleShowToken,
-        handleSubmit,
+        handleSubmit: handleSubmit(handleLogin),
         handleContinueWithGitHub,
     };
 };

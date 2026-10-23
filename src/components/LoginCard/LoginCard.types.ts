@@ -1,15 +1,23 @@
-import type { FormEvent } from 'react';
+import type { FormEventHandler } from 'react';
+import type { UseFormRegisterReturn } from 'react-hook-form';
 
-export interface LoginCardProps {
+export interface LoginFormValues {
     username: string;
     token: string;
+}
+
+export interface LoginCardProps {
+    usernameField: UseFormRegisterReturn<'username'>;
+    tokenField: UseFormRegisterReturn<'token'>;
+    usernameError?: string;
+    tokenError?: string;
     showToken: boolean;
     isLoading: boolean;
     errorMessage: string | null;
     patDocsUrl: string;
-    onUsernameChange: (value: string) => void;
-    onTokenChange: (value: string) => void;
+    onUsernameChange: () => void;
+    onTokenChange: () => void;
     onToggleShowToken: () => void;
-    onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+    onSubmit: FormEventHandler<HTMLFormElement>;
     onContinueWithGitHub: () => void;
 }

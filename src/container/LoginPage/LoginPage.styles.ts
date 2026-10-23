@@ -9,7 +9,7 @@ export const LoginSection = styled(Box)(
         gap: spacing(4),
         width: '100%',
         maxWidth: 1536,
-        minHeight: 'calc(100vh - 66px)',
+        minHeight: '85vh',
         marginInline: 'auto',
         padding: spacing(4),
         boxSizing: 'border-box',

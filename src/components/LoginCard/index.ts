@@ -1,2 +1,2 @@
 export { default } from './LoginCard.component';
-export type { LoginCardProps } from './LoginCard.types';
+export type { LoginFormValues, LoginCardProps } from './LoginCard.types';
