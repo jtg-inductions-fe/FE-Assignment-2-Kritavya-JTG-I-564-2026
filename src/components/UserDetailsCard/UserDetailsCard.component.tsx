@@ -1,5 +1,9 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import PersonRemoveAlt1Icon from '@mui/icons-material/PersonRemoveAlt1';
+import { CircularProgress } from '@mui/material';
 
+import { AppButton } from '@components';
 import { useUserDetailsCard } from '@hooks';
 
 import UserDetailsCardSkeleton from './UserDetailsCard.skeleton';
@@ -33,7 +37,15 @@ import type { UserDetailsCardProps } from './UserDetailsCard.types';
  * @returns The profile card or its loading skeleton.
  */
 const UserDetailsCard = (props: UserDetailsCardProps) => {
-    const { loading = false, avatarUrl, username } = props;
+    const {
+        loading = false,
+        avatarUrl,
+        username,
+        showFollowButton = false,
+        isFollowing = false,
+        isFollowLoading = false,
+        onFollowToggle,
+    } = props;
 
     const { displayName, bio, stats, metadata } = useUserDetailsCard(props);
 
@@ -60,6 +72,27 @@ const UserDetailsCard = (props: UserDetailsCardProps) => {
                 <ProfileName variant="h3">{displayName}</ProfileName>
 
                 <ProfileUsername variant="h5">@{username}</ProfileUsername>
+
+                {showFollowButton && (
+                    <AppButton
+                        disabled={isFollowLoading}
+                        onClick={onFollowToggle}
+                        startIcon={
+                            isFollowing ? (
+                                <PersonRemoveAlt1Icon />
+                            ) : (
+                                <PersonAddAlt1Icon />
+                            )
+                        }
+                        endIcon={
+                            isFollowLoading ? (
+                                <CircularProgress size={18} color="inherit" />
+                            ) : undefined
+                        }
+                    >
+                        {isFollowing ? 'Unfollow' : 'Follow'}
+                    </AppButton>
+                )}
             </ProfileLeft>
 
             <ProfileInformation>
