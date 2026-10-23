@@ -1,5 +1,6 @@
 import Slide, { type SlideProps } from '@mui/material/Slide';
 
+import { SNACKBAR_AUTO_HIDE_DURATION } from '@constant';
 import { useAppSnackbar } from '@hooks';
 
 import {
@@ -27,7 +28,7 @@ const AppSnackbar = () => {
                         <StyledSnackbar
                             key={snackbar.id}
                             open={!closingIds.includes(snackbar.id)}
-                            autoHideDuration={4000}
+                            autoHideDuration={SNACKBAR_AUTO_HIDE_DURATION}
                             onClose={(_, reason) => {
                                 if (reason !== 'clickaway') {
                                     onClose();

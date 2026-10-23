@@ -24,9 +24,6 @@ const useAppSnackbar = () => {
      *
      * @param {number} id - The unique ID of the snackbar to close.
      * @returns {void}
-     *
-     * @param {number} id - The unique ID of the snackbar to close.
-     * @returns {void}
      */
     const handleClose = (id: number) => {
         setClosingIds((current) =>
