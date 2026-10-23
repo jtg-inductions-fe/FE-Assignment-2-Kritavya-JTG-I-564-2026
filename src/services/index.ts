@@ -1,1 +1,2 @@
-export { baseApi } from './api';
+export * from './api';
+export * from './apiError';

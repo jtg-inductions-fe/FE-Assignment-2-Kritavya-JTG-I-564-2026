@@ -1,1 +1,3 @@
-export { default as BaseLayout } from './BaseLayout/index';
+export { default as BaseLayout } from './BaseLayout';
+export { PageLayout } from './PageLayout';
+export type { PageLayoutProps } from './PageLayout';
