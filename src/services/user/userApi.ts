@@ -36,6 +36,48 @@ export const userApi = baseApi.injectEndpoints({
                 },
             }),
         }),
+
+        /**
+         * Checks if the authenticated user is following a specific GitHub user.
+         *
+         * @param username - The GitHub username to check.
+         * @returns True if the user is followed (204 status), or false if not (404 status).
+         */
+        getFollowingStatus: builder.query<boolean, string>({
+            query: (username) => ({
+                url: API_ENDPOINTS.USER_FOLLOWING(username),
+                responseHandler: (response) =>
+                    Promise.resolve(response.status === 204),
+                validateStatus: (response) =>
+                    response.status === 204 || response.status === 404,
+            }),
+        }),
+
+        /**
+         * Follows a specific GitHub user.
+         *
+         * @param username - The GitHub username to follow.
+         * @returns A promise that resolves when the mutation completes.
+         */
+        followUser: builder.mutation<void, string>({
+            query: (username) => ({
+                url: API_ENDPOINTS.USER_FOLLOWING(username),
+                method: 'PUT',
+            }),
+        }),
+
+        /**
+         * Unfollows a specific GitHub user.
+         *
+         * @param username - The GitHub username to unfollow.
+         * @returns A promise that resolves when the mutation completes.
+         */
+        unfollowUser: builder.mutation<void, string>({
+            query: (username) => ({
+                url: API_ENDPOINTS.USER_FOLLOWING(username),
+                method: 'DELETE',
+            }),
+        }),
     }),
 });
 
@@ -43,4 +85,10 @@ export const userApi = baseApi.injectEndpoints({
  * Generated RTK Query hooks for fetching user details and verifying
  * Personal Access Tokens.
  */
-export const { useGetUserDetailsQuery, useLazyVerifyPatTokenQuery } = userApi;
+export const {
+    useGetUserDetailsQuery,
+    useLazyVerifyPatTokenQuery,
+    useGetFollowingStatusQuery,
+    useFollowUserMutation,
+    useUnfollowUserMutation,
+} = userApi;

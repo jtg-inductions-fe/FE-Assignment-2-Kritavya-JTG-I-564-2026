@@ -140,7 +140,7 @@ const LoginCard = ({
                                 rel="noopener noreferrer"
                                 underline="hover"
                             >
-                                read:user
+                                read:user &amp; user:follow
                             </ScopeLink>{' '}
                             scope.
                         </Typography>

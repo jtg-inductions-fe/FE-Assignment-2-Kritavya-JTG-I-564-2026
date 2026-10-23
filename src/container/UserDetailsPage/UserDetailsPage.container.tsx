@@ -4,7 +4,7 @@ import { Alert, Button, Stack, Typography } from '@mui/material';
 
 import { UserDetailsCard } from '@components';
 import { ROUTES } from '@constant';
-import { useUserDetailsPage } from '@hooks';
+import { useFollowUser, useUserDetailsPage } from '@hooks';
 
 import {
     DetailsPageContainer,
@@ -24,6 +24,7 @@ const UserDetailsPageContainer = ({
     const navigate = useNavigate();
     const page = useUserDetailsPage(username);
     const { user } = page;
+    const follow = useFollowUser(user.username);
 
     if (page.isNotFound) {
         return (
@@ -97,6 +98,10 @@ const UserDetailsPageContainer = ({
                 twitterUsername={user.twitterUsername}
                 memberSince={page.memberSince}
                 githubUrl={user.githubUrl}
+                showFollowButton={follow.showFollowButton}
+                isFollowing={follow.isFollowing}
+                isFollowLoading={follow.isFollowLoading}
+                onFollowToggle={() => void follow.handleFollowToggle()}
             />
         </DetailsPageContainer>
     );
