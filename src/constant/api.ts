@@ -1,5 +1,9 @@
 export const API_BASE_URL = 'https://api.github.com';
 
+export const API_ENDPOINTS = {
+    SEARCH_USERS: '/search/users',
+} as const;
+
 export const API_HEADERS = {
     ACCEPT: 'application/vnd.github+json',
     VERSION: '2026-03-10',
