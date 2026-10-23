@@ -1,10 +1,10 @@
-import type { ReactNode } from 'react';
+import { ComponentType } from 'react';
 
 import type { MenuProps } from '@mui/material';
 
 export interface AppMenuItem {
     label: string;
-    icon?: ReactNode;
+    icon?: ComponentType;
     onClick: () => void;
     disabled?: boolean;
     divider?: boolean;

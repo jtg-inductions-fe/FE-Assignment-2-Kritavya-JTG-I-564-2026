@@ -7,7 +7,7 @@ import { GlobalErrorBoundary } from '@components';
 
 const BaseLayout = () => (
     <>
-        <NavBar isAuthenticated={false} />
+        <NavBar isAuthenticated={true} />
         <Box component="main">
             <GlobalErrorBoundary>
                 <Outlet />

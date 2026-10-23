@@ -18,20 +18,22 @@ const AppMenu = ({ anchorEl, onClose, items, menuProps }: AppMenuProps) => (
         }}
         {...menuProps}
     >
-        {items.map(({ label, icon, onClick, disabled, divider }) => (
-            <StyledMenuItem
-                key={label}
-                disabled={disabled}
-                divider={divider}
-                onClick={() => {
-                    onClose();
-                    onClick();
-                }}
-            >
-                {icon}
-                {label}
-            </StyledMenuItem>
-        ))}
+        {items.map(
+            ({ label, icon: IconComponent, onClick, disabled, divider }) => (
+                <StyledMenuItem
+                    key={label}
+                    disabled={disabled}
+                    divider={divider}
+                    onClick={() => {
+                        onClose();
+                        onClick();
+                    }}
+                >
+                    {IconComponent && <IconComponent />}
+                    {label}
+                </StyledMenuItem>
+            ),
+        )}
     </Menu>
 );
 

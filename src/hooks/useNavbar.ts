@@ -1,4 +1,4 @@
-import { createElement, useState } from 'react';
+import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -50,16 +50,12 @@ const useNavbar = ({ onLogout }: NavigationBarProps) => {
     const menuItems = [
         {
             label: 'My Profile',
-            icon: createElement(PersonOutlineIcon, {
-                fontSize: 'small',
-            }),
+            icon: PersonOutlineIcon,
             onClick: handleProfileClick,
         },
         {
             label: 'Logout',
-            icon: createElement(LogoutIcon, {
-                fontSize: 'small',
-            }),
+            icon: LogoutIcon,
             onClick: handleLogout,
         },
     ];
