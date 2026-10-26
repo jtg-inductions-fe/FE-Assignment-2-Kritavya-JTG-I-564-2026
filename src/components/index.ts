@@ -15,4 +15,5 @@ export { default as AppMenu } from './AppMenu';
 export { default as AppAutocomplete } from './AppAutocomplete';
 export type { AppAutocompleteProps } from './AppAutocomplete';
 
-export { default as UserSearchOption } from './UserSearchOption';
+export { UserSearchOption } from './UserSearchOption';
+export { UserSearchOptionSkeleton } from './UserSearchOption';

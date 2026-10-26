@@ -1,2 +1,3 @@
-export { default } from './UserSearchOption.component';
+export { default as UserSearchOption } from './UserSearchOption.component';
 export type { UserSearchOptionProps } from './UserSearchOption.types';
+export { default as UserSearchOptionSkeleton } from './UserSearchOption.skeleton';

@@ -7,7 +7,7 @@ import useInfiniteScroll from './useInfiniteScroll';
 interface UseUserSearchResultsOptions {
     options: GitHubUserOption[];
     hasNextPage: boolean;
-    isFetchingNextPage: boolean;
+    isFetching: boolean;
     onLoadMore: () => void;
 }
 
@@ -24,12 +24,12 @@ const LOADING_OPTION: GitHubUserOption = {
 const useUserSearchResults = ({
     options,
     hasNextPage,
-    isFetchingNextPage,
+    isFetching,
     onLoadMore,
 }: UseUserSearchResultsOptions) => {
     const lastOptionRef = useInfiniteScroll({
         enabled: hasNextPage,
-        isFetching: isFetchingNextPage,
+        isFetching,
         onLoadMore,
     });
 

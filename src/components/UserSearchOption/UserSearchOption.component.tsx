@@ -1,7 +1,8 @@
 import { forwardRef } from 'react';
 
-import { Box, CircularProgress } from '@mui/material';
+import { Box } from '@mui/material';
 
+import UserSearchOptionSkeleton from './UserSearchOption.skeleton';
 import {
     UserSearchOptionAvatar,
     UserSearchOptionContainer,
@@ -11,16 +12,14 @@ import type { UserSearchOptionProps } from './UserSearchOption.types';
 const UserSearchOption = forwardRef<HTMLLIElement, UserSearchOptionProps>(
     ({ option, optionProps, loading = false }, ref) => (
         <Box component="li" {...optionProps} ref={ref}>
-            <UserSearchOptionContainer>
-                {loading ? (
-                    <CircularProgress size={20} />
-                ) : (
-                    <>
-                        <UserSearchOptionAvatar src={option.avatarUrl} alt="" />
-                        {option.username}
-                    </>
-                )}
-            </UserSearchOptionContainer>
+            {loading ? (
+                <UserSearchOptionSkeleton length={1} />
+            ) : (
+                <UserSearchOptionContainer>
+                    <UserSearchOptionAvatar src={option.avatarUrl} alt="" />
+                    {option.username}
+                </UserSearchOptionContainer>
+            )}
         </Box>
     ),
 );

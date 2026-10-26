@@ -7,8 +7,7 @@ interface UseInfiniteScrollOptions {
 }
 
 /**
- * Observes the last list item and requests the next page when it
- * approaches the visible area of the scrollable list.
+ * Loads the next page when the last option enters the visible area.
  */
 const useInfiniteScroll = ({
     enabled,
@@ -23,16 +22,18 @@ const useInfiniteScroll = ({
             observerRef.current?.disconnect();
             observerRef.current = null;
 
-            if (!node || !enabled || isFetching || isLoadingMoreRef.current) {
+            if (!node || !enabled || isFetching) {
                 return;
             }
 
             observerRef.current = new IntersectionObserver(
                 ([entry]) => {
-                    if (entry.isIntersecting && !isLoadingMoreRef.current) {
-                        isLoadingMoreRef.current = true;
-                        onLoadMore();
+                    if (!entry.isIntersecting || isLoadingMoreRef.current) {
+                        return;
                     }
+
+                    isLoadingMoreRef.current = true;
+                    onLoadMore();
                 },
                 {
                     root: node.parentElement,
@@ -52,12 +53,7 @@ const useInfiniteScroll = ({
         }
     }, [isFetching]);
 
-    useEffect(
-        () => () => {
-            observerRef.current?.disconnect();
-        },
-        [],
-    );
+    useEffect(() => () => observerRef.current?.disconnect(), []);
 
     return lastElementRef;
 };

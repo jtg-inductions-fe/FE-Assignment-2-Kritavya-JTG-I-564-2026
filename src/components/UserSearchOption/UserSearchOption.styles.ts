@@ -7,6 +7,7 @@ export const UserSearchOptionContainer = styled(Box)(({ theme }) => ({
     gap: theme.spacing(2),
     width: '100%',
     minHeight: 52,
+    boxSizing: 'border-box',
     padding: theme.spacing(1, 2),
 }));
 

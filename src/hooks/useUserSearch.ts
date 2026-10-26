@@ -248,6 +248,7 @@ const useUserSearch = ({
         isLoading:
             Boolean(inputValue.trim()) &&
             (isLoading || isFetching || !isCurrentQuery),
+        isFetching: isCurrentQuery && isFetching,
         isFetchingNextPage: isCurrentQuery && isFetchingNextPage,
         hasNextPage: isCurrentQuery && Boolean(hasNextPage),
         isError: isCurrentQuery && isError,

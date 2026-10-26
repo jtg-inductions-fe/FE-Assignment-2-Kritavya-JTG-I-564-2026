@@ -1,8 +1,18 @@
+import type { HTMLAttributes } from 'react';
+
+import type { AutocompleteProps } from '@mui/material/Autocomplete';
+
 import FlowersAndCloud from '@assets/images/FlowersAndCloud.webp';
-import { AppButton, PageIntro } from '@components';
-import { UserSearchResults } from '@container';
+import {
+    AppAutocomplete,
+    AppButton,
+    PageIntro,
+    UserSearchOption,
+    UserSearchOptionSkeleton,
+} from '@components';
 import { useUserSearch, useUserSearchResults } from '@hooks';
 import { PageLayout } from '@layouts';
+import type { GitHubUserOption } from '@services';
 
 import { HeroSearch, HeroSection } from './HomePage.styles';
 
@@ -12,7 +22,7 @@ const HomePageContainer = () => {
         options,
         isDropdownOpen,
         isLoading,
-        isFetchingNextPage,
+        isFetching,
         hasNextPage,
         isError,
         errorMessage,
@@ -33,9 +43,31 @@ const HomePageContainer = () => {
     } = useUserSearchResults({
         options,
         hasNextPage,
-        isFetchingNextPage,
+        isFetching,
         onLoadMore: handleLoadMore,
     });
+
+    const renderOption: NonNullable<
+        AutocompleteProps<GitHubUserOption, false, false, false>['renderOption']
+    > = (props, option) => {
+        const optionProps = {
+            ...props,
+        } as HTMLAttributes<HTMLLIElement> & { key?: string };
+
+        delete optionProps.key;
+
+        const loading = isLoadingOption(option);
+
+        return (
+            <UserSearchOption
+                key={option.id}
+                option={option}
+                optionProps={optionProps}
+                loading={loading}
+                ref={loading ? lastOptionRef : undefined}
+            />
+        );
+    };
 
     return (
         <HeroSection as="section">
@@ -51,21 +83,29 @@ const HomePageContainer = () => {
                 />
 
                 <HeroSearch>
-                    <UserSearchResults
-                        inputValue={inputValue}
+                    <AppAutocomplete<GitHubUserOption>
                         options={listOptions}
-                        isLoading={isLoading}
-                        isError={isError}
-                        errorMessage={errorMessage}
-                        isDropdownOpen={isDropdownOpen}
-                        onValueChange={handleValueChange}
-                        onDropdownOpen={handleDropdownOpen}
-                        onDropdownClose={handleDropdownClose}
+                        inputValue={inputValue}
+                        label="Search GitHub users"
+                        open={isDropdownOpen}
+                        onOpen={handleDropdownOpen}
+                        onClose={handleDropdownClose}
+                        onInputValueChange={handleValueChange}
                         onOptionSelect={handleOptionSelect}
                         getOptionLabel={getOptionLabel}
                         getOptionDisabled={getOptionDisabled}
-                        isLoadingOption={isLoadingOption}
-                        lastOptionRef={lastOptionRef}
+                        renderOption={renderOption}
+                        loading={isLoading}
+                        loadingText={<UserSearchOptionSkeleton length={5} />}
+                        noOptionsText={
+                            isError
+                                ? (errorMessage ?? 'Could not load users.')
+                                : inputValue.trim()
+                                  ? 'No GitHub users found'
+                                  : 'Type to search GitHub users'
+                        }
+                        error={isError}
+                        helperText={isError ? errorMessage : undefined}
                     />
 
                     {isError && (
