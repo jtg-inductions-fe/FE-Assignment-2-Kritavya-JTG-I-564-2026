@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import type { UIEvent } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import type { SearchOptionItem } from '@components';
+import { debounce } from '@mui/material/utils';
+
 import { DEBOUNCE_DELAY, MIN_QUERY_LENGTH, SEARCH_PARAMS } from '@constant';
+import type { GitHubUserOption } from '@services';
 import { useSearchUsersInfiniteQuery } from '@services';
 import {
     clearSearch,
@@ -13,25 +14,22 @@ import {
     useAppSelector,
 } from '@store';
 
-import useDebouncedValue from './useDebouncedValue';
-
 interface UseUserSearchOptions {
-    /** Synchronizes the search query with the URL search parameters. */
+    /** Whether the search query should be synchronized with the URL. */
     syncWithUrl?: boolean;
 
-    /** Initial search query used when URL synchronization is disabled. */
+    /** Initial search query when URL synchronization is disabled. */
     defaultQuery?: string;
 }
 
 /**
- * Manages GitHub user search, autocomplete results, and infinite scrolling.
+ * Manages GitHub user search and infinite-query state.
  *
- * Supports debounced API requests, optional URL synchronization, and
- * navigation to a selected user's profile.
+ * Handles debouncing, Redux input, URL synchronization, pagination,
+ * and navigation to a selected user's details page.
  *
- * @param options - Configuration for URL synchronization and the initial query.
- * @returns Search state, autocomplete options, loading/error information,
- * and handlers for search interactions.
+ * @param options - Search configuration.
+ * @returns Search data, loading states, and interaction handlers.
  */
 const useUserSearch = ({
     syncWithUrl = false,
@@ -43,21 +41,40 @@ const useUserSearch = ({
 
     const inputValue = useAppSelector((state) => state.search.inputValue);
     const [isInitialized, setIsInitialized] = useState(false);
+    const [debouncedQuery, setDebouncedQuery] = useState(inputValue.trim());
 
-    // Keeps the latest input available to effects without adding it as a dependency.
     const inputValueRef = useRef(inputValue);
     inputValueRef.current = inputValue;
 
-    // Delays API requests until the user pauses typing.
-    const debouncedQuery = useDebouncedValue(inputValue.trim(), DEBOUNCE_DELAY);
+    /**
+     * Delays updates to the query until the user stops typing.
+     */
+    const debouncedUpdate = useMemo(
+        () =>
+            debounce((value: string) => {
+                setDebouncedQuery(value);
+            }, DEBOUNCE_DELAY),
+        [],
+    );
 
-    /** Determines whether the debounced query meets the minimum length. */
+    useEffect(() => {
+        debouncedUpdate(inputValue.trim());
+
+        return () => {
+            debouncedUpdate.clear();
+        };
+    }, [debouncedUpdate, inputValue]);
+
     const isQueryValid = debouncedQuery.length >= MIN_QUERY_LENGTH;
 
-    /** Prevents results for an older query from appearing during debouncing. */
+    /**
+     * Prevents old results from being displayed while a new query is debounced.
+     */
     const isCurrentQuery = inputValue.trim() === debouncedQuery;
 
-    // Initializes the search from the URL or the provided default query.
+    /**
+     * Initializes the input from the URL or from the supplied default query.
+     */
     useEffect(() => {
         if (syncWithUrl) {
             const urlQuery = searchParams.get(SEARCH_PARAMS.QUERY);
@@ -75,7 +92,6 @@ const useUserSearch = ({
         setIsInitialized(true);
     }, [defaultQuery, dispatch, searchParams, syncWithUrl]);
 
-    // Skips the API request until the query meets the minimum length.
     const {
         currentData,
         isLoading,
@@ -90,25 +106,20 @@ const useUserSearch = ({
     });
 
     /**
-     * Converts API results into the format required by the autocomplete.
-     * Hides results when the query is invalid or still being debounced.
+     * Combines the already-normalized results from every fetched page.
      */
-    const options: SearchOptionItem[] = useMemo(() => {
+    const options: GitHubUserOption[] = useMemo(() => {
         if (!isQueryValid || !isCurrentQuery || !currentData) {
             return [];
         }
 
-        return currentData.pages.flatMap((page) =>
-            page.items.map(({ id, login, avatarUrl, type }) => ({
-                id,
-                username: login,
-                avatarUrl: avatarUrl,
-                userType: type,
-            })),
-        );
+        return currentData.pages.flatMap((page) => page.items);
     }, [currentData, isCurrentQuery, isQueryValid]);
 
-    // Keeps the URL query in sync with the debounced input.
+    /**
+     * Synchronizes the settled search query with the URL.
+     * Removes the query and page parameters when the input is empty.
+     */
     useEffect(() => {
         if (!syncWithUrl || !isInitialized || !isCurrentQuery) {
             return;
@@ -128,7 +139,6 @@ const useUserSearch = ({
             params.delete(SEARCH_PARAMS.QUERY);
         }
 
-        // Resets pagination when the search query changes.
         params.delete(SEARCH_PARAMS.PAGE);
 
         setSearchParams(params, { replace: true });
@@ -143,10 +153,9 @@ const useUserSearch = ({
     ]);
 
     /**
-     * Updates the search input and clears the search when the input is empty.
-     * Also updates the URL when URL synchronization is enabled.
+     * Updates the search input and clears the query when input is cleared.
      *
-     * @param value - The new search input value.
+     * @param value - The new input value.
      */
     const handleValueChange = useCallback(
         (value: string) => {
@@ -155,8 +164,10 @@ const useUserSearch = ({
 
                 if (syncWithUrl) {
                     const params = new URLSearchParams(searchParams);
+
                     params.delete(SEARCH_PARAMS.QUERY);
                     params.delete(SEARCH_PARAMS.PAGE);
+
                     setSearchParams(params, { replace: true });
                 }
 
@@ -169,47 +180,47 @@ const useUserSearch = ({
     );
 
     /**
-     * Selects a GitHub user and navigates to their profile page.
+     * Navigates to the selected GitHub user's details page.
      *
-     * @param selectedUsername - The username of the selected GitHub user.
+     * @param option - The selected user, if any.
      */
     const handleOptionSelect = useCallback(
-        (selectedUsername: string) => {
-            dispatch(setSearchValue(selectedUsername));
-            void navigate(`/users/${encodeURIComponent(selectedUsername)}`);
+        (option: GitHubUserOption | null) => {
+            if (!option || option.id === -1) {
+                return;
+            }
+
+            dispatch(setSearchValue(option.username));
+
+            void navigate(`/users/${encodeURIComponent(option.username)}`);
         },
         [dispatch, navigate],
     );
 
     /**
-     * Fetches the next page when the autocomplete list is scrolled near the bottom.
-     * Prevents fetching when no more pages are available or a request is in progress.
-     *
-     * @param event - The scroll event from the autocomplete list.
+     * Fetches the next page when the results component requests more data.
      */
-    const handleListScroll = useCallback(
-        (event: UIEvent<HTMLUListElement>) => {
-            const listbox = event.currentTarget;
+    const handleLoadMore = useCallback(() => {
+        if (
+            !isCurrentQuery ||
+            !hasNextPage ||
+            isFetching ||
+            isFetchingNextPage
+        ) {
+            return;
+        }
 
-            const reachedBottom =
-                listbox.scrollTop + listbox.clientHeight >=
-                listbox.scrollHeight - 50;
-
-            if (!reachedBottom) {
-                return;
-            }
-
-            if (!hasNextPage || isFetching || isFetchingNextPage) {
-                return;
-            }
-
-            void fetchNextPage();
-        },
-        [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage],
-    );
+        void fetchNextPage();
+    }, [
+        fetchNextPage,
+        hasNextPage,
+        isCurrentQuery,
+        isFetching,
+        isFetchingNextPage,
+    ]);
 
     /**
-     * Retries the current search request after an error.
+     * Retries the current search after an API error.
      */
     const handleRetry = useCallback(() => {
         void refetch();
@@ -218,7 +229,6 @@ const useUserSearch = ({
     return {
         inputValue,
         options,
-        isQueryValid,
         isLoading:
             Boolean(inputValue.trim()) &&
             (isLoading || isFetching || !isCurrentQuery),
@@ -231,7 +241,7 @@ const useUserSearch = ({
                 : null,
         handleValueChange,
         handleOptionSelect,
-        handleListScroll,
+        handleLoadMore,
         handleRetry,
     };
 };

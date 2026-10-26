@@ -1,6 +1,6 @@
 import FlowersAndCloud from '@assets/images/FlowersAndCloud.webp';
-import { AppButton, PageIntro, UserSearchAutocomplete } from '@components';
-import { useUserSearch } from '@hooks';
+import { AppButton, PageIntro, UserSearchResults } from '@components';
+import { useUserSearch, useUserSearchResults } from '@hooks';
 import { PageLayout } from '@layouts';
 
 import { HeroSearch, HeroSection } from './HomePage.styles';
@@ -16,12 +16,25 @@ const HomePageContainer = () => {
         errorMessage,
         handleValueChange,
         handleOptionSelect,
-        handleListScroll,
+        handleLoadMore,
         handleRetry,
     } = useUserSearch({ syncWithUrl: true });
 
+    const {
+        listOptions,
+        getOptionLabel,
+        getOptionDisabled,
+        isLoadingOption,
+        lastOptionRef,
+    } = useUserSearchResults({
+        options,
+        hasNextPage,
+        isFetchingNextPage,
+        onLoadMore: handleLoadMore,
+    });
+
     return (
-        <HeroSection as={'section'}>
+        <HeroSection as="section">
             <PageLayout image={FlowersAndCloud} imageAlt="">
                 <PageIntro
                     eyebrow="DEVELOPERS · PROJECTS · POSSIBILITIES"
@@ -34,22 +47,24 @@ const HomePageContainer = () => {
                 />
 
                 <HeroSearch>
-                    <UserSearchAutocomplete
-                        value={inputValue}
-                        options={options}
+                    <UserSearchResults
+                        inputValue={inputValue}
+                        options={listOptions}
                         isLoading={isLoading}
-                        isFetchingNextPage={isFetchingNextPage}
-                        hasNextPage={hasNextPage}
+                        isError={isError}
                         errorMessage={errorMessage}
                         onValueChange={handleValueChange}
                         onOptionSelect={handleOptionSelect}
-                        onListScroll={handleListScroll}
+                        getOptionLabel={getOptionLabel}
+                        getOptionDisabled={getOptionDisabled}
+                        isLoadingOption={isLoadingOption}
+                        lastOptionRef={lastOptionRef}
                     />
-                </HeroSearch>
 
-                {isError && (
-                    <AppButton onClick={handleRetry}>Try again</AppButton>
-                )}
+                    {isError && (
+                        <AppButton onClick={handleRetry}>Retry</AppButton>
+                    )}
+                </HeroSearch>
             </PageLayout>
         </HeroSection>
     );

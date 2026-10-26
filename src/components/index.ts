@@ -12,8 +12,8 @@ export { default as NavBar } from './Navbar';
 export type { NavigationBarProps } from './Navbar';
 export { default as AppMenu } from './AppMenu';
 
-export { default as UserSearchAutocomplete } from './UserSearchAutocomplete';
-export type {
-    SearchOptionItem,
-    UserSearchAutocompleteProps,
-} from './UserSearchAutocomplete';
+export { default as AppAutocomplete } from './AppAutocomplete';
+export type { AppAutocompleteProps } from './AppAutocomplete';
+
+export { default as UserSearchOption } from './UserSearchOption';
+export { default as UserSearchResults } from './UserSearchResults';
