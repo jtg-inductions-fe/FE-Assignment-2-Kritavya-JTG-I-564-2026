@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import type { GitHubUserOption } from '@services';
+
+import useInfiniteScroll from './useInfiniteScroll';
 
 interface UseUserSearchResultsOptions {
     options: GitHubUserOption[];
@@ -17,8 +19,7 @@ const LOADING_OPTION: GitHubUserOption = {
 };
 
 /**
- * Prepares autocomplete options and observes the last option
- * to load more results when it becomes visible.
+ * Prepares the options displayed in the user search dropdown.
  */
 const useUserSearchResults = ({
     options,
@@ -26,8 +27,11 @@ const useUserSearchResults = ({
     isFetchingNextPage,
     onLoadMore,
 }: UseUserSearchResultsOptions) => {
-    const observerRef = useRef<IntersectionObserver | null>(null);
-    const isLoadingMoreRef = useRef(false);
+    const lastOptionRef = useInfiniteScroll({
+        enabled: hasNextPage,
+        isFetching: isFetchingNextPage,
+        onLoadMore,
+    });
 
     const listOptions = useMemo(
         () => (hasNextPage ? [...options, LOADING_OPTION] : options),
@@ -47,52 +51,6 @@ const useUserSearchResults = ({
 
     const isLoadingOption = useCallback(
         (option: GitHubUserOption) => option.id === LOADING_OPTION.id,
-        [],
-    );
-
-    const lastOptionRef = useCallback(
-        (node: HTMLLIElement | null) => {
-            observerRef.current?.disconnect();
-            observerRef.current = null;
-
-            if (
-                !node ||
-                !hasNextPage ||
-                isFetchingNextPage ||
-                isLoadingMoreRef.current
-            ) {
-                return;
-            }
-
-            observerRef.current = new IntersectionObserver(
-                ([entry]) => {
-                    if (entry.isIntersecting && !isLoadingMoreRef.current) {
-                        isLoadingMoreRef.current = true;
-                        onLoadMore();
-                    }
-                },
-                {
-                    root: node.parentElement,
-                    rootMargin: '0px 0px 48px 0px',
-                    threshold: 0,
-                },
-            );
-
-            observerRef.current.observe(node);
-        },
-        [hasNextPage, isFetchingNextPage, onLoadMore],
-    );
-
-    useEffect(() => {
-        if (!isFetchingNextPage) {
-            isLoadingMoreRef.current = false;
-        }
-    }, [isFetchingNextPage]);
-
-    useEffect(
-        () => () => {
-            observerRef.current?.disconnect();
-        },
         [],
     );
 

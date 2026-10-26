@@ -41,6 +41,7 @@ const useUserSearch = ({
 
     const inputValue = useAppSelector((state) => state.search.inputValue);
     const [isInitialized, setIsInitialized] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [debouncedQuery, setDebouncedQuery] = useState(inputValue.trim());
 
     const inputValueRef = useRef(inputValue);
@@ -73,20 +74,24 @@ const useUserSearch = ({
     const isCurrentQuery = inputValue.trim() === debouncedQuery;
 
     /**
-     * Initializes the input from the URL or from the supplied default query.
+     * Initializes the search input and dropdown from the URL.
      */
     useEffect(() => {
         if (syncWithUrl) {
-            const urlQuery = searchParams.get(SEARCH_PARAMS.QUERY);
+            const urlQuery = searchParams.get(SEARCH_PARAMS.QUERY) ?? '';
 
-            if (
-                urlQuery !== null &&
-                urlQuery !== inputValueRef.current.trim()
-            ) {
-                dispatch(setSearchValue(urlQuery));
+            if (urlQuery !== inputValueRef.current.trim()) {
+                if (urlQuery) {
+                    dispatch(setSearchValue(urlQuery));
+                } else {
+                    dispatch(clearSearch());
+                }
             }
+
+            setIsDropdownOpen(Boolean(urlQuery.trim()));
         } else if (defaultQuery) {
             dispatch(setSearchValue(defaultQuery));
+            setIsDropdownOpen(Boolean(defaultQuery.trim()));
         }
 
         setIsInitialized(true);
@@ -117,8 +122,7 @@ const useUserSearch = ({
     }, [currentData, isCurrentQuery, isQueryValid]);
 
     /**
-     * Synchronizes the settled search query with the URL.
-     * Removes the query and page parameters when the input is empty.
+     * Synchronizes the settled query with the URL.
      */
     useEffect(() => {
         if (!syncWithUrl || !isInitialized || !isCurrentQuery) {
@@ -159,8 +163,9 @@ const useUserSearch = ({
      */
     const handleValueChange = useCallback(
         (value: string) => {
-            if (value === '') {
+            if (!value.trim()) {
                 dispatch(clearSearch());
+                setIsDropdownOpen(false);
 
                 if (syncWithUrl) {
                     const params = new URLSearchParams(searchParams);
@@ -175,9 +180,18 @@ const useUserSearch = ({
             }
 
             dispatch(setSearchValue(value));
+            setIsDropdownOpen(true);
         },
         [dispatch, searchParams, setSearchParams, syncWithUrl],
     );
+
+    const handleDropdownOpen = useCallback(() => {
+        setIsDropdownOpen(true);
+    }, []);
+
+    const handleDropdownClose = useCallback(() => {
+        setIsDropdownOpen(false);
+    }, []);
 
     /**
      * Navigates to the selected GitHub user's details page.
@@ -191,6 +205,7 @@ const useUserSearch = ({
             }
 
             dispatch(setSearchValue(option.username));
+            setIsDropdownOpen(false);
 
             void navigate(`/users/${encodeURIComponent(option.username)}`);
         },
@@ -229,6 +244,7 @@ const useUserSearch = ({
     return {
         inputValue,
         options,
+        isDropdownOpen,
         isLoading:
             Boolean(inputValue.trim()) &&
             (isLoading || isFetching || !isCurrentQuery),
@@ -240,6 +256,8 @@ const useUserSearch = ({
                 ? 'Could not load GitHub users. Try again.'
                 : null,
         handleValueChange,
+        handleDropdownOpen,
+        handleDropdownClose,
         handleOptionSelect,
         handleLoadMore,
         handleRetry,

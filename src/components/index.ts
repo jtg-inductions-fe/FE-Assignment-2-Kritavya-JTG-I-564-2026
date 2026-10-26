@@ -16,4 +16,3 @@ export { default as AppAutocomplete } from './AppAutocomplete';
 export type { AppAutocompleteProps } from './AppAutocomplete';
 
 export { default as UserSearchOption } from './UserSearchOption';
-export { default as UserSearchResults } from './UserSearchResults';

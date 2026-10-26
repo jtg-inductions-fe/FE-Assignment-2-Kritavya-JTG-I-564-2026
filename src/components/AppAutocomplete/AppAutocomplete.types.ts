@@ -1,4 +1,4 @@
-import type { ReactNode, Ref, UIEventHandler } from 'react';
+import type { ReactNode } from 'react';
 
 import type { AutocompleteProps } from '@mui/material/Autocomplete';
 
@@ -6,6 +6,9 @@ export interface AppAutocompleteProps<T> {
     options: T[];
     inputValue: string;
     label: string;
+    open?: boolean;
+    onOpen?: () => void;
+    onClose?: () => void;
     onInputValueChange: (value: string) => void;
     onOptionSelect: (option: T | null) => void;
     getOptionLabel: (option: T) => string;
@@ -18,6 +21,4 @@ export interface AppAutocompleteProps<T> {
     noOptionsText?: ReactNode;
     error?: boolean;
     helperText?: ReactNode;
-    listboxRef?: Ref<HTMLUListElement>;
-    onListboxScroll?: UIEventHandler<HTMLUListElement>;
 }

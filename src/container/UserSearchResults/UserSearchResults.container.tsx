@@ -14,7 +14,10 @@ const UserSearchResults = ({
     isLoading,
     isError,
     errorMessage,
+    isDropdownOpen,
     onValueChange,
+    onDropdownOpen,
+    onDropdownClose,
     onOptionSelect,
     getOptionLabel,
     getOptionDisabled,
@@ -46,6 +49,9 @@ const UserSearchResults = ({
             options={options}
             inputValue={inputValue}
             label="Search GitHub users"
+            open={isDropdownOpen}
+            onOpen={onDropdownOpen}
+            onClose={onDropdownClose}
             onInputValueChange={onValueChange}
             onOptionSelect={onOptionSelect}
             getOptionLabel={getOptionLabel}

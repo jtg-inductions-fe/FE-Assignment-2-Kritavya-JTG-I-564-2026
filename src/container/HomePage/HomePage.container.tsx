@@ -1,5 +1,6 @@
 import FlowersAndCloud from '@assets/images/FlowersAndCloud.webp';
-import { AppButton, PageIntro, UserSearchResults } from '@components';
+import { AppButton, PageIntro } from '@components';
+import { UserSearchResults } from '@container';
 import { useUserSearch, useUserSearchResults } from '@hooks';
 import { PageLayout } from '@layouts';
 
@@ -9,12 +10,15 @@ const HomePageContainer = () => {
     const {
         inputValue,
         options,
+        isDropdownOpen,
         isLoading,
         isFetchingNextPage,
         hasNextPage,
         isError,
         errorMessage,
         handleValueChange,
+        handleDropdownOpen,
+        handleDropdownClose,
         handleOptionSelect,
         handleLoadMore,
         handleRetry,
@@ -53,7 +57,10 @@ const HomePageContainer = () => {
                         isLoading={isLoading}
                         isError={isError}
                         errorMessage={errorMessage}
+                        isDropdownOpen={isDropdownOpen}
                         onValueChange={handleValueChange}
+                        onDropdownOpen={handleDropdownOpen}
+                        onDropdownClose={handleDropdownClose}
                         onOptionSelect={handleOptionSelect}
                         getOptionLabel={getOptionLabel}
                         getOptionDisabled={getOptionDisabled}

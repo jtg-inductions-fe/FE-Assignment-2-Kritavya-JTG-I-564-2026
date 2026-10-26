@@ -1,6 +1,4 @@
-import { useCallback } from 'react';
-
-import type { SyntheticEvent } from 'react';
+import { SyntheticEvent, useCallback } from 'react';
 
 import { Autocomplete, TextField } from '@mui/material';
 import type { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
@@ -11,6 +9,9 @@ const AppAutocomplete = <T,>({
     options,
     inputValue,
     label,
+    open = false,
+    onOpen,
+    onClose,
     onInputValueChange,
     onOptionSelect,
     getOptionLabel,
@@ -21,8 +22,6 @@ const AppAutocomplete = <T,>({
     noOptionsText = 'No options found',
     error = false,
     helperText,
-    listboxRef,
-    onListboxScroll,
 }: AppAutocompleteProps<T>) => {
     const handleInputChange = useCallback(
         (
@@ -40,6 +39,9 @@ const AppAutocomplete = <T,>({
     return (
         <Autocomplete<T, false, false, false>
             fullWidth
+            open={open}
+            onOpen={onOpen}
+            onClose={onClose}
             forcePopupIcon={false}
             clearOnBlur={false}
             options={options}
@@ -56,8 +58,6 @@ const AppAutocomplete = <T,>({
             onChange={(_event, option) => onOptionSelect(option)}
             slotProps={{
                 listbox: {
-                    ref: listboxRef,
-                    onScroll: onListboxScroll,
                     style: {
                         maxHeight: 320,
                         overflowY: 'auto',

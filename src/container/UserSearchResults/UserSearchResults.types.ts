@@ -8,7 +8,10 @@ export interface UserSearchResultsProps {
     isLoading: boolean;
     isError: boolean;
     errorMessage: string | null;
+    isDropdownOpen: boolean;
     onValueChange: (value: string) => void;
+    onDropdownOpen: () => void;
+    onDropdownClose: () => void;
     onOptionSelect: (option: GitHubUserOption | null) => void;
     getOptionLabel: (option: GitHubUserOption) => string;
     getOptionDisabled: (option: GitHubUserOption) => boolean;

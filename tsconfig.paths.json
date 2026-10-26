@@ -12,7 +12,7 @@
             "@layouts": ["./src/layouts/index.ts"],
             "@hooks": ["./src/hooks/index.ts"],
             "@container": ["./src/container/index.ts"],
-            "@container/*": ["./src/container/*"]
+            "@utils": ["./src/utils/index.ts"]
         }
     }
 }
