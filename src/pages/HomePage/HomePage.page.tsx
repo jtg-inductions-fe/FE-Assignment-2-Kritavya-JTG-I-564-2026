@@ -1,11 +1,5 @@
-import Typography from '@mui/material/Typography';
+import { HomePageContainer } from '@container';
 
-import { HeroSection } from './HomePage.styles';
-
-const HomePage = () => (
-    <HeroSection>
-        <Typography variant="h6">This is the Hero section</Typography>
-    </HeroSection>
-);
+const HomePage = () => <HomePageContainer />;
 
 export default HomePage;

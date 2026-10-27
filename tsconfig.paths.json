@@ -10,7 +10,9 @@
             "@store": ["./src/store/index.ts"],
             "@routes": ["./src/routes/index.ts"],
             "@layouts": ["./src/layouts/index.ts"],
-            "@hooks": ["./src/hooks/index.ts"]
+            "@hooks": ["./src/hooks/index.ts"],
+            "@container": ["./src/container/index.ts"],
+            "@utils": ["./src/utils/index.ts"]
         }
     }
 }

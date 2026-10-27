@@ -7,6 +7,7 @@ import {
     type FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
 import { showSnackbar } from '@store';
+import { transformKeysToCamelCase } from '@utils';
 
 import { getApiError } from './apiError';
 
@@ -37,6 +38,10 @@ const baseQuery: BaseQueryFn<
                 severity: 'error',
             }),
         );
+    }
+
+    if (result.data !== undefined) {
+        result.data = transformKeysToCamelCase(result.data);
     }
 
     return result;

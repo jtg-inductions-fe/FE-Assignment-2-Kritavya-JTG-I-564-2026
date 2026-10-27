@@ -11,3 +11,9 @@ export type { PageHeadingLine, PageIntroProps } from './PageIntro';
 export { default as NavBar } from './Navbar';
 export type { NavigationBarProps } from './Navbar';
 export { default as AppMenu } from './AppMenu';
+
+export { default as AppAutocomplete } from './AppAutocomplete';
+export type { AppAutocompleteProps } from './AppAutocomplete';
+
+export { UserSearchOption } from './UserSearchOption';
+export { UserSearchOptionSkeleton } from './UserSearchOption';
