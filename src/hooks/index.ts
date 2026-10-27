@@ -6,3 +6,4 @@ export { default as useInfiniteScroll } from './useInfiniteScroll';
 export { default as useUserDetails } from './useUserDetails';
 export { default as useUserDetailsCard } from './useUserDetailsCard';
 export { default as usePatLogin } from './usePatLogin';
+export { default as useFollowUser } from './useFollowUser';

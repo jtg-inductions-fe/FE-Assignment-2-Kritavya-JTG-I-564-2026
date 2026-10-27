@@ -1,6 +1,10 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import PersonRemoveAlt1Icon from '@mui/icons-material/PersonRemoveAlt1';
 import { Box, Link, Stack, Typography } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 
+import { AppButton } from '@components';
 import { useUserDetailsCard } from '@hooks';
 
 import {
@@ -21,7 +25,15 @@ import type { UserDetailsCardProps } from './UserDetailsCard.types';
  * @returns The profile card or its loading skeleton.
  */
 const UserDetailsCard = (props: UserDetailsCardProps) => {
-    const { avatarUrl, username } = props;
+    const {
+        avatarUrl,
+        username,
+        showFollowButton = false,
+        isFollowing = false,
+        isFollowLoading = false,
+        onFollowToggle,
+    } = props;
+
     const { displayName, bio, stats, metadata } = useUserDetailsCard(props);
 
     return (
@@ -61,6 +73,27 @@ const UserDetailsCard = (props: UserDetailsCardProps) => {
                 >
                     @{username}
                 </OverFlowTypo>
+
+                {showFollowButton && (
+                    <AppButton
+                        disabled={isFollowLoading}
+                        onClick={onFollowToggle}
+                        startIcon={
+                            isFollowing ? (
+                                <PersonRemoveAlt1Icon />
+                            ) : (
+                                <PersonAddAlt1Icon />
+                            )
+                        }
+                        endIcon={
+                            isFollowLoading ? (
+                                <CircularProgress size={18} color="inherit" />
+                            ) : undefined
+                        }
+                    >
+                        {isFollowing ? 'Unfollow' : 'Follow'}
+                    </AppButton>
+                )}
             </Stack>
 
             <Stack gap={8} width="100%">

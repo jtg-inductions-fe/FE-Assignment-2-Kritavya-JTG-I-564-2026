@@ -13,4 +13,8 @@ export interface UserDetailsCardProps {
     twitterUsername: string | null;
     memberSince: string;
     githubUrl: string;
+    showFollowButton?: boolean;
+    isFollowing?: boolean;
+    isFollowLoading?: boolean;
+    onFollowToggle?: () => void;
 }

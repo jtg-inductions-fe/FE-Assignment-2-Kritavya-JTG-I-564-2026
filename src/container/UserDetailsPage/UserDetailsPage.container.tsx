@@ -1,10 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Alert, Button, Stack, Typography } from '@mui/material';
+import { Alert, Stack, Typography } from '@mui/material';
 
-import { UserDetailsCard, UserDetailsCardSkeleton } from '@components';
+import {
+    AppButton,
+    UserDetailsCard,
+    UserDetailsCardSkeleton,
+} from '@components';
 import { ROUTES } from '@constant';
-import { useUserDetails } from '@hooks';
+import { useFollowUser, useUserDetails } from '@hooks';
 import { mapUserDetailsToCardProps } from '@utils';
 
 import {
@@ -29,6 +33,7 @@ const UserDetailsPageContainer = ({
         errorMessage,
         isLoading,
     } = useUserDetails(profileUsername);
+    const follow = useFollowUser(user.username);
 
     if (isNotFound) {
         return (
@@ -46,12 +51,9 @@ const UserDetailsPageContainer = ({
                             : 'The requested GitHub user could not be found.'}
                     </Typography>
 
-                    <Button
-                        variant="contained"
-                        onClick={() => void navigate(ROUTES.HOME)}
-                    >
+                    <AppButton onClick={() => void navigate(ROUTES.HOME)}>
                         Back to home
-                    </Button>
+                    </AppButton>
                 </MessageContainer>
             </DetailsPageContainer>
         );
@@ -76,16 +78,13 @@ const UserDetailsPageContainer = ({
                         flexWrap="wrap"
                         justifyContent="center"
                     >
-                        <Button variant="contained" onClick={user.handleRetry}>
+                        <AppButton onClick={user.handleRetry}>
                             Try again
-                        </Button>
+                        </AppButton>
 
-                        <Button
-                            variant="outlined"
-                            onClick={() => void navigate(ROUTES.HOME)}
-                        >
+                        <AppButton onClick={() => void navigate(ROUTES.HOME)}>
                             Back to home
-                        </Button>
+                        </AppButton>
                     </Stack>
                 </MessageContainer>
             </DetailsPageContainer>
@@ -104,6 +103,10 @@ const UserDetailsPageContainer = ({
         <DetailsPageContainer>
             <UserDetailsCard
                 {...mapUserDetailsToCardProps(user, memberSince)}
+                showFollowButton={follow.showFollowButton}
+                isFollowing={follow.isFollowing}
+                isFollowLoading={follow.isFollowLoading}
+                onFollowToggle={() => void follow.handleFollowToggle()}
             />
         </DetailsPageContainer>
     );

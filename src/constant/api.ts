@@ -5,6 +5,8 @@ export const API_ENDPOINTS = {
     AUTHENTICATED_USER: '/user',
     USER_DETAILS: (username: string) =>
         `/users/${encodeURIComponent(username)}`,
+    USER_FOLLOWING: (username: string) =>
+        `/user/following/${encodeURIComponent(username)}`,
 } as const;
 
 export const API_HEADERS = {

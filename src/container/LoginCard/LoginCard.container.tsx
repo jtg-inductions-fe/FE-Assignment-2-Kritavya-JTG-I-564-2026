@@ -165,7 +165,7 @@ const LoginCard = ({
                                 }}
                                 underline="hover"
                             >
-                                read:user
+                                read:user &amp; user:follow
                             </ScopeLink>{' '}
                             scope.
                         </Typography>
