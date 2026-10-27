@@ -1,27 +1,17 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { Typography } from '@mui/material';
+import { Link, Stack, Typography } from '@mui/material';
 
 import { useUserDetailsCard } from '@hooks';
 
 import UserDetailsCardSkeleton from './UserDetailsCard.skeleton';
 import {
-    AvatarFallback,
     MetadataContent,
-    MetadataLink,
     MetadataRow,
-    MetadataText,
+    OverFlowTypo,
     ProfileAvatar,
-    ProfileBio,
     ProfileCard,
     ProfileImageContainer,
-    ProfileInformation,
-    ProfileLeft,
-    ProfileMetadata,
-    ProfileName,
-    ProfileStat,
     ProfileStats,
-    ProfileStatValue,
-    ProfileUsername,
 } from './UserDetailsCard.styles';
 import type { UserDetailsCardProps } from './UserDetailsCard.types';
 
@@ -33,7 +23,6 @@ import type { UserDetailsCardProps } from './UserDetailsCard.types';
  */
 const UserDetailsCard = (props: UserDetailsCardProps) => {
     const { loading = false, avatarUrl, username } = props;
-
     const { displayName, bio, stats, metadata } = useUserDetailsCard(props);
 
     if (loading) {
@@ -42,7 +31,7 @@ const UserDetailsCard = (props: UserDetailsCardProps) => {
 
     return (
         <ProfileCard>
-            <ProfileLeft>
+            <Stack alignItems="center" gap={2} width="100%">
                 <ProfileImageContainer>
                     {avatarUrl ? (
                         <ProfileAvatar
@@ -50,47 +39,66 @@ const UserDetailsCard = (props: UserDetailsCardProps) => {
                             alt={`${username}'s GitHub avatar`}
                         />
                     ) : (
-                        <AvatarFallback>
+                        <Stack
+                            alignItems={'center'}
+                            justifyContent={'center'}
+                            width={'100%'}
+                            height={'100%'}
+                        >
                             <GitHubIcon fontSize="large" />
-                        </AvatarFallback>
+                        </Stack>
                     )}
                 </ProfileImageContainer>
 
-                <ProfileName variant="h3">{displayName}</ProfileName>
+                <OverFlowTypo
+                    variant="h3"
+                    color="text.secondary"
+                    mt={1}
+                    fontWeight={'bold'}
+                    textAlign={'center'}
+                >
+                    {displayName}
+                </OverFlowTypo>
+                <OverFlowTypo
+                    variant="h5"
+                    color="text.secondary"
+                    textAlign={'center'}
+                >
+                    @{username}
+                </OverFlowTypo>
+            </Stack>
 
-                <ProfileUsername variant="h5">@{username}</ProfileUsername>
-            </ProfileLeft>
-
-            <ProfileInformation>
-                {bio && <ProfileBio variant="h4">{bio}</ProfileBio>}
+            <Stack gap={8} width="100%">
+                {bio && (
+                    <OverFlowTypo variant="h4" mb={1}>
+                        {bio}
+                    </OverFlowTypo>
+                )}
 
                 <ProfileStats>
                     {stats.map(({ label, value }) => (
-                        <ProfileStat key={label}>
-                            <ProfileStatValue variant="h4">
+                        <OverFlowTypo key={label} gap={1} minWidth={0}>
+                            <OverFlowTypo variant="h4" fontWeight={'bold'}>
                                 {value.toLocaleString('en-US')}
-                            </ProfileStatValue>
-
+                            </OverFlowTypo>
                             <Typography variant="body1" color="text.secondary">
                                 {label}
                             </Typography>
-                        </ProfileStat>
+                        </OverFlowTypo>
                     ))}
                 </ProfileStats>
 
-                <ProfileMetadata>
+                <Stack gap={5} minWidth={0} width="100%">
                     {metadata.map(
                         ({ label, value, href, external, icon: Icon }) => (
                             <MetadataRow key={label}>
                                 <Icon fontSize="small" />
-
                                 <MetadataContent>
                                     <Typography variant="h6" fontWeight="bold">
                                         {label}
                                     </Typography>
-
                                     {href ? (
-                                        <MetadataLink
+                                        <Link
                                             href={href}
                                             target={
                                                 external ? '_blank' : undefined
@@ -104,18 +112,22 @@ const UserDetailsCard = (props: UserDetailsCardProps) => {
                                             variant="h6"
                                         >
                                             {value}
-                                        </MetadataLink>
+                                        </Link>
                                     ) : (
-                                        <MetadataText variant="h6">
+                                        <OverFlowTypo
+                                            variant="h6"
+                                            color="text.secondary"
+                                            minWidth={0}
+                                        >
                                             {value}
-                                        </MetadataText>
+                                        </OverFlowTypo>
                                     )}
                                 </MetadataContent>
                             </MetadataRow>
                         ),
                     )}
-                </ProfileMetadata>
-            </ProfileInformation>
+                </Stack>
+            </Stack>
         </ProfileCard>
     );
 };

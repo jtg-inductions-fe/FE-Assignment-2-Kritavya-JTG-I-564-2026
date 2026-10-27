@@ -24,10 +24,7 @@ export const DetailsPageContainer = styled(Box)(
 
 export const MessageContainer = styled(Stack)(({ theme: { spacing } }) => ({
     width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
     textAlign: 'center',
-    gap: spacing(2),
     padding: spacing(3),
     boxSizing: 'border-box',
 }));

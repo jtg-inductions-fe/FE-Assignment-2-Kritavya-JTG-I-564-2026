@@ -1,4 +1,4 @@
-import { Box, Link, Skeleton, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const ProfileCard = styled(Box)(
@@ -30,15 +30,6 @@ export const ProfileCard = styled(Box)(
     }),
 );
 
-export const ProfileLeft = styled(Box)(({ theme: { spacing } }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: spacing(2),
-    minWidth: 0,
-    width: '100%',
-}));
-
 export const ProfileImageContainer = styled(Box)(({ theme: { palette } }) => ({
     width: '100%',
     maxWidth: 280,
@@ -56,73 +47,10 @@ export const ProfileAvatar = styled('img')({
     borderRadius: '50%',
 });
 
-export const AvatarFallback = styled(Box)(({ theme: { palette } }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-    color: palette.text.secondary,
-}));
-
-export const ProfileName = styled(Typography)(
-    ({ theme: { spacing, typography } }) => ({
-        marginTop: spacing(1),
-        fontWeight: typography.fontWeightBold,
-        textAlign: 'center',
-        overflowWrap: 'anywhere',
-    }),
-);
-
-export const ProfileUsername = styled(Typography)(({ theme: { palette } }) => ({
-    color: palette.text.secondary,
-    textAlign: 'center',
-    overflowWrap: 'anywhere',
-}));
-
-export const ProfileInformation = styled(Box)(({ theme: { spacing } }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    gap: spacing(8),
-    minWidth: 0,
-    width: '100%',
-}));
-
-export const ProfileBio = styled(Typography)(
-    ({ theme: { spacing, palette } }) => ({
-        marginBottom: spacing(1),
-        color: palette.text.primary,
-        overflowWrap: 'anywhere',
-    }),
-);
-
 export const ProfileStats = styled(Box)(({ theme: { spacing } }) => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
     gap: spacing(10),
-    width: '100%',
-}));
-
-export const ProfileStat = styled(Box)(({ theme: { spacing } }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    gap: spacing(1),
-    minWidth: 0,
-    overflowWrap: 'anywhere',
-}));
-
-export const ProfileStatValue = styled(Typography)(
-    ({ theme: { typography } }) => ({
-        fontWeight: typography.fontWeightBold,
-        overflowWrap: 'anywhere',
-    }),
-);
-
-export const ProfileMetadata = styled(Box)(({ theme: { spacing } }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    gap: spacing(5),
-    minWidth: 0,
     width: '100%',
 }));
 
@@ -154,42 +82,6 @@ export const MetadataContent = styled(Box)(
     }),
 );
 
-export const MetadataLink = styled(Link)({
-    minWidth: 0,
+export const OverFlowTypo = styled(Typography)({
     overflowWrap: 'anywhere',
 });
-
-export const MetadataText = styled(Typography)(({ theme: { palette } }) => ({
-    color: palette.text.secondary,
-    overflowWrap: 'anywhere',
-    minWidth: 0,
-}));
-
-// Skeleton styles
-
-export const SkeletonAvatar = styled(Skeleton)({
-    display: 'block',
-    width: '100%',
-    height: '100%',
-    transform: 'none',
-    borderRadius: '50%',
-});
-
-export const SkeletonLine = styled(Skeleton)({
-    transform: 'none',
-});
-
-export const SkeletonStatLine = styled(Box)(({ theme: { spacing } }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    gap: spacing(1),
-    width: '100%',
-}));
-
-export const SkeletonMetadataRow = styled(Box)(({ theme: { spacing } }) => ({
-    display: 'grid',
-    gridTemplateColumns: '32px minmax(0, 1fr)',
-    alignItems: 'start',
-    columnGap: spacing(2),
-}));

@@ -1,4 +1,4 @@
-import { Skeleton } from '@mui/material';
+import { Skeleton, Stack } from '@mui/material';
 
 import {
     PROFILE_METADATA_SKELETON_COUNT,
@@ -7,39 +7,36 @@ import {
 import {
     MetadataContent,
     MetadataRow,
+    OverFlowTypo,
     ProfileCard,
     ProfileImageContainer,
-    ProfileInformation,
-    ProfileLeft,
-    ProfileMetadata,
-    ProfileStat,
     ProfileStats,
 } from './UserDetailsCard.styles';
 
 const UserDetailsCardSkeleton = () => (
     <ProfileCard>
-        <ProfileLeft>
+        <Stack alignItems="center" gap={2} width="100%">
             <ProfileImageContainer>
                 <Skeleton variant="circular" width="100%" height="100%" />
             </ProfileImageContainer>
 
             <Skeleton variant="text" width="75%" height={42} />
             <Skeleton variant="text" width="55%" height={30} />
-        </ProfileLeft>
+        </Stack>
 
-        <ProfileInformation>
+        <Stack gap={8} width="100%">
             <Skeleton variant="text" width="90%" height={36} />
 
             <ProfileStats>
                 {PROFILE_STAT_LABELS.map((label) => (
-                    <ProfileStat key={label}>
+                    <OverFlowTypo key={label} gap={1} minWidth={0}>
                         <Skeleton variant="text" width="55%" height={36} />
                         <Skeleton variant="text" width="85%" height={24} />
-                    </ProfileStat>
+                    </OverFlowTypo>
                 ))}
             </ProfileStats>
 
-            <ProfileMetadata>
+            <Stack gap={5} minWidth={0} width="100%">
                 {Array.from(
                     { length: PROFILE_METADATA_SKELETON_COUNT },
                     (_, index) => (
@@ -65,8 +62,8 @@ const UserDetailsCardSkeleton = () => (
                         </MetadataRow>
                     ),
                 )}
-            </ProfileMetadata>
-        </ProfileInformation>
+            </Stack>
+        </Stack>
     </ProfileCard>
 );
 

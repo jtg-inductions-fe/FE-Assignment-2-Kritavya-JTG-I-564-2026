@@ -28,7 +28,11 @@ const UserDetailsPageContainer = () => {
     if (isNotFound) {
         return (
             <DetailsPageContainer>
-                <MessageContainer>
+                <MessageContainer
+                    alignItems="center"
+                    justifyContent="center"
+                    gap={2}
+                >
                     <Typography variant="h5">User not found</Typography>
 
                     <Typography variant="body1" color="text.secondary">
@@ -51,7 +55,11 @@ const UserDetailsPageContainer = () => {
     if (isError) {
         return (
             <DetailsPageContainer>
-                <MessageContainer>
+                <MessageContainer
+                    alignItems="center"
+                    justifyContent="center"
+                    gap={2}
+                >
                     <Alert severity="error">
                         {errorMessage ||
                             'Something went wrong while loading this profile.'}
