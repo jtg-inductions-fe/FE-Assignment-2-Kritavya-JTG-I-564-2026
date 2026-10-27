@@ -1,6 +1,10 @@
 import { Skeleton } from '@mui/material';
 
 import {
+    PROFILE_METADATA_SKELETON_COUNT,
+    PROFILE_STAT_LABELS,
+} from './UserDetailsCard.constants';
+import {
     MetadataContent,
     MetadataRow,
     ProfileCard,
@@ -27,7 +31,7 @@ const UserDetailsCardSkeleton = () => (
             <Skeleton variant="text" width="90%" height={36} />
 
             <ProfileStats>
-                {['Repositories', 'Followers', 'Following'].map((label) => (
+                {PROFILE_STAT_LABELS.map((label) => (
                     <ProfileStat key={label}>
                         <Skeleton variant="text" width="55%" height={36} />
                         <Skeleton variant="text" width="85%" height={24} />
@@ -36,16 +40,31 @@ const UserDetailsCardSkeleton = () => (
             </ProfileStats>
 
             <ProfileMetadata>
-                {Array.from({ length: 7 }, (_, index) => (
-                    <MetadataRow key={index}>
-                        <Skeleton variant="circular" width={22} height={22} />
+                {Array.from(
+                    { length: PROFILE_METADATA_SKELETON_COUNT },
+                    (_, index) => (
+                        <MetadataRow key={index}>
+                            <Skeleton
+                                variant="circular"
+                                width={22}
+                                height={22}
+                            />
 
-                        <MetadataContent>
-                            <Skeleton variant="text" width="65%" height={26} />
-                            <Skeleton variant="text" width="80%" height={26} />
-                        </MetadataContent>
-                    </MetadataRow>
-                ))}
+                            <MetadataContent>
+                                <Skeleton
+                                    variant="text"
+                                    width="65%"
+                                    height={26}
+                                />
+                                <Skeleton
+                                    variant="text"
+                                    width="80%"
+                                    height={26}
+                                />
+                            </MetadataContent>
+                        </MetadataRow>
+                    ),
+                )}
             </ProfileMetadata>
         </ProfileInformation>
     </ProfileCard>

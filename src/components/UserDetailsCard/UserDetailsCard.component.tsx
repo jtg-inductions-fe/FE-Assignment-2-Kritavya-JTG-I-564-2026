@@ -1,4 +1,5 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { Typography } from '@mui/material';
 
 import { useUserDetailsCard } from '@hooks';
 
@@ -6,7 +7,6 @@ import UserDetailsCardSkeleton from './UserDetailsCard.skeleton';
 import {
     AvatarFallback,
     MetadataContent,
-    MetadataLabel,
     MetadataLink,
     MetadataRow,
     MetadataText,
@@ -19,7 +19,6 @@ import {
     ProfileMetadata,
     ProfileName,
     ProfileStat,
-    ProfileStatLabel,
     ProfileStats,
     ProfileStatValue,
     ProfileUsername,
@@ -72,9 +71,9 @@ const UserDetailsCard = (props: UserDetailsCardProps) => {
                                 {value.toLocaleString('en-US')}
                             </ProfileStatValue>
 
-                            <ProfileStatLabel variant="body1">
+                            <Typography variant="body1" color="text.secondary">
                                 {label}
-                            </ProfileStatLabel>
+                            </Typography>
                         </ProfileStat>
                     ))}
                 </ProfileStats>
@@ -86,9 +85,9 @@ const UserDetailsCard = (props: UserDetailsCardProps) => {
                                 <Icon fontSize="small" />
 
                                 <MetadataContent>
-                                    <MetadataLabel variant="h6">
+                                    <Typography variant="h6" fontWeight="bold">
                                         {label}
-                                    </MetadataLabel>
+                                    </Typography>
 
                                     {href ? (
                                         <MetadataLink

@@ -5,6 +5,7 @@ import { Alert, Button, Typography } from '@mui/material';
 import { UserDetailsCard } from '@components';
 import { ROUTES } from '@constant';
 import { useUserDetailsPage } from '@hooks';
+import { mapUserDetailsToCardProps } from '@utils';
 
 import {
     DetailsPageContainer,
@@ -71,20 +72,7 @@ const UserDetailsPageContainer = () => {
         <DetailsPageContainer>
             <UserDetailsCard
                 loading={isLoading}
-                avatarUrl={user.avatarUrl}
-                username={user.username}
-                name={user.name}
-                bio={user.bio}
-                followers={user.followers}
-                following={user.following}
-                publicRepos={user.publicRepos}
-                location={user.location}
-                company={user.company}
-                blog={user.blog}
-                email={user.email}
-                twitterUsername={user.twitterUsername}
-                memberSince={memberSince}
-                githubUrl={user.githubUrl}
+                {...mapUserDetailsToCardProps(user, memberSince)}
             />
         </DetailsPageContainer>
     );

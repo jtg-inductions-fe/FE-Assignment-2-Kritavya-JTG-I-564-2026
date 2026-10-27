@@ -1,5 +1,7 @@
 import { useParams } from 'react-router-dom';
 
+import { formatMemberSince } from '@utils';
+
 import useUserDetails from './useUserDetails';
 
 /**
@@ -11,15 +13,7 @@ const useUserDetailsPage = () => {
     const { username = '' } = useParams<{ username: string }>();
 
     const user = useUserDetails(username);
-
-    const memberSince = user.createdAt
-        ? new Date(user.createdAt).toLocaleDateString('en-US', {
-              month: 'short',
-              day: 'numeric',
-              year: 'numeric',
-              timeZone: 'UTC',
-          })
-        : 'Not available';
+    const memberSince = formatMemberSince(user.createdAt);
 
     return {
         username,

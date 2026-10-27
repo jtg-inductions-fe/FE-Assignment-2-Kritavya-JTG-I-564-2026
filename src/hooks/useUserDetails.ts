@@ -1,4 +1,5 @@
 import { getApiError, useGetUserDetailsQuery } from '@services';
+import { mapGitHubUserDetails } from '@utils';
 
 /**
  * Fetches a GitHub user's details and exposes the fields used by the UI.
@@ -13,22 +14,10 @@ const useUserDetails = (username: string) => {
         });
 
     const parsedError = isError ? getApiError(error) : null;
+    const userDetails = mapGitHubUserDetails(data);
 
     return {
-        avatarUrl: data?.avatarUrl ?? '',
-        username: data?.login ?? '',
-        name: data?.name ?? null,
-        bio: data?.bio ?? null,
-        company: data?.company ?? null,
-        location: data?.location ?? null,
-        followers: data?.followers ?? 0,
-        following: data?.following ?? 0,
-        publicRepos: data?.publicRepos ?? 0,
-        githubUrl: data?.htmlUrl ?? '',
-        blog: data?.blog ?? null,
-        email: data?.email ?? null,
-        twitterUsername: data?.twitterUsername ?? null,
-        createdAt: data?.createdAt ?? null,
+        ...userDetails,
         isLoading: isLoading || isFetching,
         isNotFound: parsedError?.status === 404,
         isError,
