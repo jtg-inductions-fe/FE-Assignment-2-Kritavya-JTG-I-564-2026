@@ -1,29 +1,7 @@
-import { Box, Skeleton, Stack } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Skeleton, Stack } from '@mui/material';
 
-const SkeletonRow = styled(Stack)(({ theme }) => ({
-    display: 'grid',
-    gridTemplateColumns: '32px minmax(0, 1fr)',
-    alignItems: 'center',
-    columnGap: theme.spacing(2),
-    width: '100%',
-    minWidth: 0,
-    minHeight: 52,
-    boxSizing: 'border-box',
-    padding: theme.spacing(1, 2),
-}));
-
-const SkeletonText = styled(Box)({
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    width: '100%',
-    minWidth: 0,
-});
-
-interface UserSearchOptionSkeletonProps {
-    length?: number;
-}
+import { SkeletonRow, SkeletonText } from './UserSearchOption.styles';
+import { UserSearchOptionSkeletonProps } from './UserSearchOption.types';
 
 /**
  * Displays skeleton rows matching the user search option layout.

@@ -7,3 +7,7 @@ export interface UserSearchOptionProps {
     optionProps: HTMLAttributes<HTMLLIElement>;
     loading?: boolean;
 }
+
+export interface UserSearchOptionSkeletonProps {
+    length?: number;
+}
