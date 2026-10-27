@@ -187,21 +187,17 @@ export const MetadataContent = styled(Box)(
     }),
 );
 
-export const MetadataLabel = styled('span')(
+export const MetadataLabel = styled(Typography)(
     ({ theme: { palette, typography } }) => ({
-        ...typography.h6,
         color: palette.text.primary,
         fontWeight: typography.fontWeightBold,
     }),
 );
 
-export const MetadataText = styled('span')(
-    ({ theme: { palette, typography } }) => ({
-        ...typography.h6,
-        color: palette.text.secondary,
-        overflowWrap: 'anywhere',
-    }),
-);
+export const MetadataText = styled(Typography)(({ theme: { palette } }) => ({
+    color: palette.text.secondary,
+    overflowWrap: 'anywhere',
+}));
 
 export const MetadataLink = styled(Link)(({ theme: { typography } }) => ({
     ...typography.h6,

@@ -86,7 +86,9 @@ const UserDetailsCard = (props: UserDetailsCardProps) => {
                                 <Icon fontSize="small" />
 
                                 <MetadataContent>
-                                    <MetadataLabel>{label}</MetadataLabel>
+                                    <MetadataLabel variant="h6">
+                                        {label}
+                                    </MetadataLabel>
 
                                     {href ? (
                                         <MetadataLink
@@ -105,7 +107,9 @@ const UserDetailsCard = (props: UserDetailsCardProps) => {
                                             {value}
                                         </MetadataLink>
                                     ) : (
-                                        <MetadataText>{value}</MetadataText>
+                                        <MetadataText variant="h6">
+                                            {value}
+                                        </MetadataText>
                                     )}
                                 </MetadataContent>
                             </MetadataRow>
