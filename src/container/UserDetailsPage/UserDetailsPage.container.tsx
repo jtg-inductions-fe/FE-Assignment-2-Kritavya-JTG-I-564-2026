@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Alert, Button, Typography } from '@mui/material';
 
 import { UserDetailsCard } from '@components';
+import { UserDetailsCardSkeleton } from '@components';
 import { ROUTES } from '@constant';
 import { useUserDetailsPage } from '@hooks';
 import { mapUserDetailsToCardProps } from '@utils';
@@ -76,10 +77,17 @@ const UserDetailsPageContainer = () => {
         );
     }
 
+    if (isLoading) {
+        return (
+            <DetailsPageContainer>
+                <UserDetailsCardSkeleton />
+            </DetailsPageContainer>
+        );
+    }
+
     return (
         <DetailsPageContainer>
             <UserDetailsCard
-                loading={isLoading}
                 {...mapUserDetailsToCardProps(user, memberSince)}
             />
         </DetailsPageContainer>

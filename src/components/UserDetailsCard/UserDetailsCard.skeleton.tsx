@@ -13,7 +13,7 @@ import {
     ProfileStats,
 } from './UserDetailsCard.styles';
 
-const UserDetailsCardSkeleton = () => (
+export const UserDetailsCardSkeleton = () => (
     <ProfileCard>
         <Stack alignItems="center" gap={2} width="100%">
             <ProfileImageContainer>

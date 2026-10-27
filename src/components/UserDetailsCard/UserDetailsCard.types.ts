@@ -1,5 +1,4 @@
 export interface UserDetailsCardProps {
-    loading?: boolean;
     avatarUrl: string;
     username: string;
     name: string | null;

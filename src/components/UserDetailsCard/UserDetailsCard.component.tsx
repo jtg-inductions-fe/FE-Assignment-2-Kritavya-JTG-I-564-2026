@@ -1,9 +1,8 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { Link, Stack, Typography } from '@mui/material';
+import { Box, Link, Stack, Typography } from '@mui/material';
 
 import { useUserDetailsCard } from '@hooks';
 
-import UserDetailsCardSkeleton from './UserDetailsCard.skeleton';
 import {
     MetadataContent,
     MetadataRow,
@@ -22,12 +21,8 @@ import type { UserDetailsCardProps } from './UserDetailsCard.types';
  * @returns The profile card or its loading skeleton.
  */
 const UserDetailsCard = (props: UserDetailsCardProps) => {
-    const { loading = false, avatarUrl, username } = props;
+    const { avatarUrl, username } = props;
     const { displayName, bio, stats, metadata } = useUserDetailsCard(props);
-
-    if (loading) {
-        return <UserDetailsCardSkeleton />;
-    }
 
     return (
         <ProfileCard>
@@ -77,14 +72,20 @@ const UserDetailsCard = (props: UserDetailsCardProps) => {
 
                 <ProfileStats>
                     {stats.map(({ label, value }) => (
-                        <OverFlowTypo key={label} gap={1} minWidth={0}>
+                        <Box
+                            key={label}
+                            display="flex"
+                            flexDirection="column"
+                            gap={1}
+                            minWidth={0}
+                        >
                             <OverFlowTypo variant="h4" fontWeight={'bold'}>
                                 {value.toLocaleString('en-US')}
                             </OverFlowTypo>
                             <Typography variant="body1" color="text.secondary">
                                 {label}
                             </Typography>
-                        </OverFlowTypo>
+                        </Box>
                     ))}
                 </ProfileStats>
 

@@ -1,10 +1,10 @@
 /**
- * Formats a GitHub account creation date for display.
+ * Formats a date for display.
  *
- * @param date - Account creation date returned by the API.
+ * @param date - Date returned by the API.
  * @returns Formatted date or "Not available" when no valid date is provided.
  */
-export const formatMemberSince = (date: string | null): string => {
+export const dateFormatter = (date: string | null): string => {
     if (!date) {
         return 'Not available';
     }

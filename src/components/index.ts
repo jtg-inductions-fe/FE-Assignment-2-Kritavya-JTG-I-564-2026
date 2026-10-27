@@ -20,3 +20,4 @@ export { UserSearchOptionSkeleton } from './UserSearchOption';
 
 export { UserDetailsCard } from './UserDetailsCard';
 export type { UserDetailsCardProps } from './UserDetailsCard';
+export { UserDetailsCardSkeleton } from './UserDetailsCard';
