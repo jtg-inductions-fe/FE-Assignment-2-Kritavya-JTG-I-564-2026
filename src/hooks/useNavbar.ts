@@ -6,16 +6,14 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { useMediaQuery } from '@mui/material';
 
-import type { NavigationBarProps } from '@components';
 import { ROUTES } from '@constant';
+import { clearCredentials, showSnackbar, useAppDispatch } from '@store';
 
 /**
- * Handles the state, media queries, and navigation actions for the application's header/navbar.
- *
- * @param {NavigationBarProps} props - Component properties passed from the navigation bar.
- * @returns An object containing layout flags, menu configuration, and interaction handlers.
+ * Handles navbar state, responsive layout, navigation and logout.
  */
-const useNavbar = ({ onLogout }: NavigationBarProps) => {
+const useNavbar = () => {
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     // Responsive design flag used to toggle between desktop headers and mobile/hamburger setups
@@ -39,7 +37,16 @@ const useNavbar = ({ onLogout }: NavigationBarProps) => {
 
     const handleLogout = () => {
         setAnchorEl(null);
-        onLogout?.();
+
+        dispatch(clearCredentials());
+        dispatch(
+            showSnackbar({
+                message: 'Signed out successfully.',
+                severity: 'info',
+            }),
+        );
+
+        void navigate(ROUTES.LOGIN);
     };
 
     const handleMenuClose = () => {

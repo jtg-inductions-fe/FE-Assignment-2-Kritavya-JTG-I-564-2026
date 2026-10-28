@@ -1,0 +1,55 @@
+import FlowersAndCloud from '@assets/images/FlowersAndCloud.webp';
+import { PageIntro } from '@components';
+import { LoginCard } from '@container';
+import { usePatLogin } from '@hooks';
+import { PageLayout } from '@layouts';
+
+import { LoginSection } from './LoginPage.styles';
+
+const LoginPageContainer = () => {
+    const {
+        usernameField,
+        tokenField,
+        usernameError,
+        tokenError,
+        showToken,
+        isLoading,
+        errorMessage,
+        patDocsUrl,
+        handleToggleShowToken,
+        handleSubmit,
+        handleContinueWithGitHub,
+    } = usePatLogin();
+
+    return (
+        <LoginSection as="section">
+            <PageLayout image={FlowersAndCloud} imageAlt="">
+                <PageIntro
+                    eyebrow="PEOPLE · PROJECTS · CODE"
+                    heading={[
+                        { text: 'EXPLORE' },
+                        { text: 'GITHUB', outlined: true },
+                        { text: 'DEEPER.' },
+                    ]}
+                    description="Search developers, explore their profiles, and discover insights from the GitHub community."
+                />
+            </PageLayout>
+
+            <LoginCard
+                usernameField={usernameField}
+                tokenField={tokenField}
+                usernameError={usernameError}
+                tokenError={tokenError}
+                showToken={showToken}
+                isLoading={isLoading}
+                errorMessage={errorMessage}
+                patDocsUrl={patDocsUrl}
+                onToggleShowToken={handleToggleShowToken}
+                onSubmit={(event) => void handleSubmit(event)}
+                onContinueWithGitHub={handleContinueWithGitHub}
+            />
+        </LoginSection>
+    );
+};
+
+export default LoginPageContainer;

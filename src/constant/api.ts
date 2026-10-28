@@ -2,6 +2,7 @@ export const API_BASE_URL = 'https://api.github.com';
 
 export const API_ENDPOINTS = {
     SEARCH_USERS: '/search/users',
+    AUTHENTICATED_USER: '/user',
     USER_DETAILS: (username: string) =>
         `/users/${encodeURIComponent(username)}`,
 } as const;

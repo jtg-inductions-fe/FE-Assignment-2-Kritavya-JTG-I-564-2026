@@ -1,11 +1,5 @@
-import { Typography } from '@mui/material';
+import { LoginPageContainer } from '@container';
 
-import { PageLayout } from '@layouts';
-
-const LoginPage = () => (
-    <PageLayout>
-        <Typography variant="h4">This is the login page</Typography>
-    </PageLayout>
-);
+const LoginPage = () => <LoginPageContainer />;
 
 export default LoginPage;

@@ -14,11 +14,7 @@ import {
 } from './Navbar.styles';
 import type { NavigationBarProps } from './Navbar.types';
 
-const Navbar = ({
-    isAuthenticated = false,
-    avatarUrl,
-    onLogout,
-}: NavigationBarProps) => {
+const Navbar = ({ isAuthenticated = false, avatarUrl }: NavigationBarProps) => {
     const {
         isDesktop,
         anchorEl,
@@ -27,7 +23,7 @@ const Navbar = ({
         handleHomeClick,
         handleLoginClick,
         handleMenuClose,
-    } = useNavbar({ onLogout });
+    } = useNavbar();
 
     return (
         <StyledAppBar position="sticky" elevation={0}>

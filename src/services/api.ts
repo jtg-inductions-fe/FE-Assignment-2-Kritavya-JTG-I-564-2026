@@ -9,5 +9,9 @@ export type {
     GitHubUserResponse,
 } from './search';
 
-export { userApi, useGetUserDetailsQuery } from './user';
+export {
+    userApi,
+    useGetUserDetailsQuery,
+    useLazyVerifyPatTokenQuery,
+} from './user';
 export type { GitHubUserDetails } from './user';
