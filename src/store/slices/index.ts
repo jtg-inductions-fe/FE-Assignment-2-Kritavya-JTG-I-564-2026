@@ -7,3 +7,4 @@ export type { SnackbarItem } from './snackbarSlice';
 
 export { setCredentials, clearCredentials } from './authSlice';
 export { default as authReducer } from './authSlice';
+export type { AuthState } from './authSlice.types';

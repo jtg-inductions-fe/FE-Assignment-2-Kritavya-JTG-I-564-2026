@@ -15,8 +15,6 @@ export interface LoginCardProps {
     isLoading: boolean;
     errorMessage: string | null;
     patDocsUrl: string;
-    onUsernameChange: () => void;
-    onTokenChange: () => void;
     onToggleShowToken: () => void;
     onSubmit: FormEventHandler<HTMLFormElement>;
     onContinueWithGitHub: () => void;

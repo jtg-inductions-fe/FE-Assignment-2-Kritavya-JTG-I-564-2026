@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -29,77 +29,72 @@ const usePatLogin = () => {
 
     const [verifyPatToken, { isFetching }] = useLazyVerifyPatTokenQuery();
 
+    const clearError = () => {
+        setErrorMessage(null);
+    };
+
     const usernameField = register('username', {
+        onChange: clearError,
         validate: (value) =>
             Boolean(value.trim()) || 'Please enter your GitHub username.',
     });
 
     const tokenField = register('token', {
+        onChange: clearError,
         validate: (value) =>
             Boolean(value.trim()) || 'Please enter your Personal Access Token.',
     });
 
-    const handleUsernameChange = useCallback(() => {
-        setErrorMessage(null);
-    }, []);
+    const handleToggleShowToken = () => {
+        setShowToken((previousValue) => !previousValue);
+    };
 
-    const handleTokenChange = useCallback(() => {
-        setErrorMessage(null);
-    }, []);
-
-    const handleToggleShowToken = useCallback(() => {
-        setShowToken((previous) => !previous);
-    }, []);
-
-    const handleContinueWithGitHub = useCallback(() => {
+    const handleContinueWithGitHub = () => {
         window.open(GITHUB_PAT_DOCS_URL, '_blank', 'noopener,noreferrer');
-    }, []);
+    };
 
-    const handleLogin = useCallback(
-        async ({ username, token }: LoginFormValues) => {
-            setErrorMessage(null);
+    const handleLogin = async ({ username, token }: LoginFormValues) => {
+        setErrorMessage(null);
 
-            const trimmedUsername = username.trim();
-            const trimmedToken = token.trim();
+        const trimmedUsername = username.trim();
+        const trimmedToken = token.trim();
 
-            try {
-                const authenticatedUser =
-                    await verifyPatToken(trimmedToken).unwrap();
+        try {
+            const authenticatedUser =
+                await verifyPatToken(trimmedToken).unwrap();
 
-                if (
-                    authenticatedUser.login.toLowerCase() !==
-                    trimmedUsername.toLowerCase()
-                ) {
-                    setErrorMessage(
-                        'The provided username does not match this Personal Access Token.',
-                    );
-                    return;
-                }
-
-                dispatch(
-                    setCredentials({
-                        token: trimmedToken,
-                        username: authenticatedUser.login,
-                        avatarUrl: authenticatedUser.avatarUrl,
-                    }),
-                );
-
-                dispatch(
-                    showSnackbar({
-                        message: `Welcome back, ${authenticatedUser.login}!`,
-                        severity: 'success',
-                    }),
-                );
-
-                void navigate(ROUTES.HOME, { replace: true });
-            } catch {
+            if (
+                authenticatedUser.login.toLowerCase() !==
+                trimmedUsername.toLowerCase()
+            ) {
                 setErrorMessage(
-                    'Invalid Personal Access Token. Please check your token and read:user scope.',
+                    'The provided username does not match this Personal Access Token.',
                 );
+                return;
             }
-        },
-        [dispatch, navigate, verifyPatToken],
-    );
+
+            dispatch(
+                setCredentials({
+                    token: trimmedToken,
+                    username: authenticatedUser.login,
+                    avatarUrl: authenticatedUser.avatarUrl,
+                }),
+            );
+
+            dispatch(
+                showSnackbar({
+                    message: `Welcome back, ${authenticatedUser.login}!`,
+                    severity: 'success',
+                }),
+            );
+
+            void navigate(ROUTES.HOME, { replace: true });
+        } catch {
+            setErrorMessage(
+                'Invalid Personal Access Token. Please check your token and read:user scope.',
+            );
+        }
+    };
 
     return {
         usernameField,
@@ -110,8 +105,6 @@ const usePatLogin = () => {
         isLoading: isFetching,
         errorMessage,
         patDocsUrl: GITHUB_PAT_DOCS_URL,
-        handleUsernameChange,
-        handleTokenChange,
         handleToggleShowToken,
         handleSubmit: handleSubmit(handleLogin),
         handleContinueWithGitHub,

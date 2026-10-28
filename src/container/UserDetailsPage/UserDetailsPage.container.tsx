@@ -2,32 +2,35 @@ import { useNavigate } from 'react-router-dom';
 
 import { Alert, Button, Stack, Typography } from '@mui/material';
 
-import { UserDetailsCard } from '@components';
-import { UserDetailsCardSkeleton } from '@components';
+import { UserDetailsCard, UserDetailsCardSkeleton } from '@components';
 import { ROUTES } from '@constant';
-import { useUserDetailsPage } from '@hooks';
+import { useUserDetails } from '@hooks';
 import { mapUserDetailsToCardProps } from '@utils';
 
 import {
     DetailsPageContainer,
     MessageContainer,
 } from './UserDetailsPage.styles';
-
-interface UserDetailsPageContainerProps {
-    username?: string;
-}
+import { UserDetailsPageContainerProps } from './UserDetailsPage.types';
 
 /**
  * Displays a GitHub profile for the route username or the signed-in user.
  */
 const UserDetailsPageContainer = ({
-    username,
+    profileUsername,
 }: UserDetailsPageContainerProps) => {
     const navigate = useNavigate();
-    const page = useUserDetailsPage(username);
-    const { user } = page;
+    const {
+        user,
+        username,
+        memberSince,
+        isNotFound,
+        isError,
+        errorMessage,
+        isLoading,
+    } = useUserDetails(profileUsername);
 
-    if (page.isNotFound) {
+    if (isNotFound) {
         return (
             <DetailsPageContainer>
                 <MessageContainer
@@ -38,8 +41,8 @@ const UserDetailsPageContainer = ({
                     <Typography variant="h5">User not found</Typography>
 
                     <Typography variant="body1" color="text.secondary">
-                        {page.username
-                            ? `We couldn't find a GitHub user named "${page.username}".`
+                        {username
+                            ? `We couldn't find a GitHub user named "${username}".`
                             : 'The requested GitHub user could not be found.'}
                     </Typography>
 
@@ -54,7 +57,7 @@ const UserDetailsPageContainer = ({
         );
     }
 
-    if (page.isError) {
+    if (isError) {
         return (
             <DetailsPageContainer>
                 <MessageContainer
@@ -63,7 +66,7 @@ const UserDetailsPageContainer = ({
                     gap={2}
                 >
                     <Alert severity="error">
-                        {page.errorMessage ||
+                        {errorMessage ||
                             'Something went wrong while loading this profile.'}
                     </Alert>
 
@@ -89,7 +92,7 @@ const UserDetailsPageContainer = ({
         );
     }
 
-    if (page.isLoading) {
+    if (isLoading) {
         return (
             <DetailsPageContainer>
                 <UserDetailsCardSkeleton />
@@ -100,7 +103,7 @@ const UserDetailsPageContainer = ({
     return (
         <DetailsPageContainer>
             <UserDetailsCard
-                {...mapUserDetailsToCardProps(user, page.memberSince)}
+                {...mapUserDetailsToCardProps(user, memberSince)}
             />
         </DetailsPageContainer>
     );

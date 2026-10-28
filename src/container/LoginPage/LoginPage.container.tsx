@@ -16,8 +16,6 @@ const LoginPageContainer = () => {
         isLoading,
         errorMessage,
         patDocsUrl,
-        handleUsernameChange,
-        handleTokenChange,
         handleToggleShowToken,
         handleSubmit,
         handleContinueWithGitHub,
@@ -46,8 +44,6 @@ const LoginPageContainer = () => {
                 isLoading={isLoading}
                 errorMessage={errorMessage}
                 patDocsUrl={patDocsUrl}
-                onUsernameChange={handleUsernameChange}
-                onTokenChange={handleTokenChange}
                 onToggleShowToken={handleToggleShowToken}
                 onSubmit={(event) => void handleSubmit(event)}
                 onContinueWithGitHub={handleContinueWithGitHub}

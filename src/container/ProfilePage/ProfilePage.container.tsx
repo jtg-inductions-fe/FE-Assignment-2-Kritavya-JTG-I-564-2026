@@ -7,7 +7,7 @@ import { useAppSelector } from '@store';
 const ProfilePageContainer = () => {
     const username = useAppSelector((state) => state.auth.username);
 
-    return <UserDetailsPageContainer username={username ?? ''} />;
+    return <UserDetailsPageContainer profileUsername={username ?? ''} />;
 };
 
 export default ProfilePageContainer;

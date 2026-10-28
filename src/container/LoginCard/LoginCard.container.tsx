@@ -35,24 +35,24 @@ const LoginCard = ({
     isLoading,
     errorMessage,
     patDocsUrl,
-    onUsernameChange,
-    onTokenChange,
     onToggleShowToken,
     onSubmit,
+    onContinueWithGitHub,
 }: LoginCardProps) => (
     <StyledLoginCard elevation={0}>
         <StyledLoginCardContent>
-            <Stack alignItems={'center'} gap={1} mb={3}>
+            <Stack alignItems="center" gap={1} mb={3}>
                 <Stack
-                    alignItems={'center'}
-                    justifyContent={'center'}
-                    color={'primary.dark'}
+                    alignItems="center"
+                    justifyContent="center"
+                    color="primary.dark"
                 >
                     <GitHubIcon fontSize="large" />
                 </Stack>
+
                 <Typography
                     variant="subtitle2"
-                    fontFamily={'Azonix'}
+                    fontFamily="Azonix"
                     fontSize={16}
                     letterSpacing={2}
                 >
@@ -60,16 +60,13 @@ const LoginCard = ({
                 </Typography>
             </Stack>
 
-            <Stack textAlign={'center'} alignItems={'center'} gap={1} mb={4}>
-                <Typography
-                    variant="h3"
-                    fontWeight={700}
-                    color={'primary.dark'}
-                >
+            <Stack textAlign="center" alignItems="center" gap={1} mb={4}>
+                <Typography variant="h3" fontWeight={700} color="primary.dark">
                     Sign in to Continue
                 </Typography>
-                <Typography variant="body2" color={'text.secondary'}>
-                    Enter your GitHub username & Personal Access Token.
+
+                <Typography variant="body2" color="text.secondary">
+                    Enter your GitHub username and Personal Access Token.
                 </Typography>
             </Stack>
 
@@ -83,7 +80,7 @@ const LoginCard = ({
                         <Typography
                             variant="body2"
                             fontWeight={600}
-                            color={'primary.dark'}
+                            color="primary.dark"
                         >
                             GitHub Username
                         </Typography>
@@ -95,10 +92,6 @@ const LoginCard = ({
                             disabled={isLoading}
                             error={Boolean(usernameError)}
                             helperText={usernameError}
-                            onChange={(event) => {
-                                void usernameField.onChange(event);
-                                onUsernameChange();
-                            }}
                             slotProps={{
                                 input: {
                                     startAdornment: (
@@ -115,22 +108,19 @@ const LoginCard = ({
                         <Typography
                             variant="body2"
                             fontWeight={600}
-                            color={'primary.dark'}
+                            color="primary.dark"
                         >
                             Personal Access Token
                         </Typography>
+
                         <StyledTextField
                             {...tokenField}
                             fullWidth
                             type={showToken ? 'text' : 'password'}
-                            placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                            placeholder="Enter your GitHub token"
                             disabled={isLoading}
                             error={Boolean(tokenError)}
                             helperText={tokenError}
-                            onChange={(event) => {
-                                void tokenField.onChange(event);
-                                onTokenChange();
-                            }}
                             slotProps={{
                                 input: {
                                     startAdornment: (
@@ -145,7 +135,11 @@ const LoginCard = ({
                                                 onClick={onToggleShowToken}
                                                 edge="end"
                                                 size="small"
-                                                aria-label="toggle token visibility"
+                                                aria-label={
+                                                    showToken
+                                                        ? 'Hide token'
+                                                        : 'Show token'
+                                                }
                                             >
                                                 {showToken ? (
                                                     <VisibilityOutlinedIcon fontSize="small" />
@@ -165,8 +159,10 @@ const LoginCard = ({
                             Use a GitHub Personal Access Token with at least{' '}
                             <ScopeLink
                                 href={patDocsUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    onContinueWithGitHub();
+                                }}
                                 underline="hover"
                             >
                                 read:user

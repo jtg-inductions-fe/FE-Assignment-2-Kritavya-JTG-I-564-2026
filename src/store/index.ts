@@ -14,4 +14,4 @@ export {
     clearCredentials,
     authReducer,
 } from './slices';
-export type { SnackbarItem } from './slices';
+export type { AuthState, SnackbarItem } from './slices';

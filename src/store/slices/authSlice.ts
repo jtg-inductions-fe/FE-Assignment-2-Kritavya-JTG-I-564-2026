@@ -1,12 +1,7 @@
 import { STORAGE_KEYS } from '@constant';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-interface AuthState {
-    token: string | null;
-    username: string | null;
-    avatarUrl: string | null;
-    isAuthenticated: boolean;
-}
+import { AuthState } from './authSlice.types';
 
 /**
  * Retrieves an item from localStorage.
