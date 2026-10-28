@@ -1,5 +1,6 @@
 import FlowersAndCloud from '@assets/images/FlowersAndCloud.webp';
-import { LoginCard, PageIntro } from '@components';
+import { PageIntro } from '@components';
+import { LoginCard } from '@container';
 import { usePatLogin } from '@hooks';
 import { PageLayout } from '@layouts';
 

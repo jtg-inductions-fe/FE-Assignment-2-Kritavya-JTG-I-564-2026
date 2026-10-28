@@ -3,8 +3,8 @@ import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import type { LoginFormValues } from '@components';
 import { GITHUB_PAT_DOCS_URL, ROUTES } from '@constant';
+import type { LoginFormValues } from '@container';
 import { useLazyVerifyPatTokenQuery } from '@services';
 import { setCredentials, showSnackbar, useAppDispatch } from '@store';
 

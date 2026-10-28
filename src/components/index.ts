@@ -21,6 +21,3 @@ export { UserSearchOptionSkeleton } from './UserSearchOption';
 export { UserDetailsCard } from './UserDetailsCard';
 export type { UserDetailsCardProps } from './UserDetailsCard';
 export { UserDetailsCardSkeleton } from './UserDetailsCard';
-
-export { default as LoginCard } from './LoginCard';
-export type { LoginFormValues, LoginCardProps } from './LoginCard';

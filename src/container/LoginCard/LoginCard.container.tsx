@@ -9,28 +9,20 @@ import {
     CircularProgress,
     IconButton,
     InputAdornment,
+    Stack,
     Typography,
 } from '@mui/material';
 
 import { AppButton } from '@components';
 
 import {
-    BrandHeaderStack,
-    BrandLogoWrapper,
-    BrandText,
-    CardSubtitle,
-    CardTitle,
     ErrorAlert,
-    FieldGroup,
-    FieldLabel,
     FormContainer,
-    FormStack,
     InfoBox,
     ScopeLink,
     StyledLoginCard,
     StyledLoginCardContent,
     StyledTextField,
-    TitleStack,
 } from './LoginCard.styles';
 import type { LoginCardProps } from './LoginCard.types';
 
@@ -50,28 +42,51 @@ const LoginCard = ({
 }: LoginCardProps) => (
     <StyledLoginCard elevation={0}>
         <StyledLoginCardContent>
-            <BrandHeaderStack>
-                <BrandLogoWrapper>
+            <Stack alignItems={'center'} gap={1} mb={3}>
+                <Stack
+                    alignItems={'center'}
+                    justifyContent={'center'}
+                    color={'primary.dark'}
+                >
                     <GitHubIcon fontSize="large" />
-                </BrandLogoWrapper>
-                <BrandText variant="subtitle2">GITHUB EXPLORER</BrandText>
-            </BrandHeaderStack>
+                </Stack>
+                <Typography
+                    variant="subtitle2"
+                    fontFamily={'Azonix'}
+                    fontSize={16}
+                    letterSpacing={2}
+                >
+                    GITHUB EXPLORER
+                </Typography>
+            </Stack>
 
-            <TitleStack>
-                <CardTitle variant="h3">Sign in to Continue</CardTitle>
-                <CardSubtitle variant="body2">
+            <Stack textAlign={'center'} alignItems={'center'} gap={1} mb={4}>
+                <Typography
+                    variant="h3"
+                    fontWeight={700}
+                    color={'primary.dark'}
+                >
+                    Sign in to Continue
+                </Typography>
+                <Typography variant="body2" color={'text.secondary'}>
                     Enter your GitHub username & Personal Access Token.
-                </CardSubtitle>
-            </TitleStack>
+                </Typography>
+            </Stack>
 
             <FormContainer onSubmit={onSubmit} noValidate>
-                <FormStack>
+                <Stack gap={2.5}>
                     {errorMessage && (
                         <ErrorAlert severity="error">{errorMessage}</ErrorAlert>
                     )}
 
-                    <FieldGroup>
-                        <FieldLabel variant="body2">GitHub Username</FieldLabel>
+                    <Stack gap={1}>
+                        <Typography
+                            variant="body2"
+                            fontWeight={600}
+                            color={'primary.dark'}
+                        >
+                            GitHub Username
+                        </Typography>
 
                         <StyledTextField
                             {...usernameField}
@@ -94,12 +109,16 @@ const LoginCard = ({
                                 },
                             }}
                         />
-                    </FieldGroup>
+                    </Stack>
 
-                    <FieldGroup>
-                        <FieldLabel variant="body2">
+                    <Stack gap={1}>
+                        <Typography
+                            variant="body2"
+                            fontWeight={600}
+                            color={'primary.dark'}
+                        >
                             Personal Access Token
-                        </FieldLabel>
+                        </Typography>
                         <StyledTextField
                             {...tokenField}
                             fullWidth
@@ -139,7 +158,7 @@ const LoginCard = ({
                                 },
                             }}
                         />
-                    </FieldGroup>
+                    </Stack>
 
                     <InfoBox icon={<InfoOutlinedIcon fontSize="small" />}>
                         <Typography variant="body2" color="text.secondary">
@@ -169,7 +188,7 @@ const LoginCard = ({
                     >
                         {isLoading ? 'Signing In...' : 'Sign In'}
                     </AppButton>
-                </FormStack>
+                </Stack>
             </FormContainer>
         </StyledLoginCardContent>
     </StyledLoginCard>

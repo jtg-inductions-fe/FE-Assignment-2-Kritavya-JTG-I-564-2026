@@ -1,13 +1,4 @@
-import {
-    Alert,
-    Box,
-    Card,
-    CardContent,
-    Link,
-    Stack,
-    TextField,
-    Typography,
-} from '@mui/material';
+import { Alert, Card, CardContent, Link, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const StyledLoginCard = styled(Card)(
@@ -39,60 +30,9 @@ export const StyledLoginCardContent = styled(CardContent)(
     }),
 );
 
-export const BrandHeaderStack = styled(Stack)(({ theme: { spacing } }) => ({
-    alignItems: 'center',
-    gap: spacing(1),
-    marginBottom: spacing(3),
-}));
-
-export const BrandLogoWrapper = styled(Box)(({ theme: { palette } }) => ({
-    color: palette.primary.dark,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}));
-
-export const BrandText = styled(Typography)(({ theme: { palette } }) => ({
-    fontFamily: 'Azonix',
-    fontSize: '1.3rem',
-    letterSpacing: '0.18em',
-    color: palette.primary.dark,
-    textAlign: 'center',
-}));
-
-export const TitleStack = styled(Stack)(({ theme: { spacing } }) => ({
-    alignItems: 'center',
-    textAlign: 'center',
-    gap: spacing(1),
-    marginBottom: spacing(4),
-}));
-
-export const CardTitle = styled(Typography)(({ theme: { palette } }) => ({
-    color: palette.primary.dark,
-    fontWeight: 700,
-}));
-
-export const CardSubtitle = styled(Typography)(({ theme: { palette } }) => ({
-    color: palette.text.secondary,
-    maxWidth: 400,
-}));
-
 export const FormContainer = styled('form')({
     width: '100%',
 });
-
-export const FormStack = styled(Stack)(({ theme: { spacing } }) => ({
-    gap: spacing(2.5),
-}));
-
-export const FieldGroup = styled(Stack)(({ theme: { spacing } }) => ({
-    gap: spacing(1),
-}));
-
-export const FieldLabel = styled(Typography)(({ theme: { palette } }) => ({
-    fontWeight: 600,
-    color: palette.primary.dark,
-}));
 
 export const StyledTextField = styled(TextField)(
     ({ theme: { palette, spacing } }) => ({
