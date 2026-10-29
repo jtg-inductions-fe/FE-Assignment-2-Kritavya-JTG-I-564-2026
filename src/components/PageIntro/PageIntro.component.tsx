@@ -1,13 +1,6 @@
-import {
-    PageActions,
-    PageDescription,
-    PageEyebrowAccent,
-    PageEyebrowContainer,
-    PageEyebrowText,
-    PageHeading,
-    PageHeadingLine,
-    PageIntroContainer,
-} from './PageIntro.styles';
+import { Stack, Typography } from '@mui/material';
+
+import { PageEyebrowAccent, PageHeadingLine } from './PageIntro.styles';
 import type { PageIntroProps } from './PageIntro.types';
 
 const PageIntro = ({
@@ -17,14 +10,22 @@ const PageIntro = ({
     actions,
     children,
 }: PageIntroProps) => (
-    <PageIntroContainer>
-        <PageEyebrowContainer direction="row" alignItems="center" spacing={1.5}>
+    <Stack width="100%">
+        <Stack direction="row" alignItems="center" spacing={1.5} mb={3}>
             <PageEyebrowAccent />
+            <Typography
+                variant="overline"
+                fontSize="1.375rem"
+                lineHeight="2rem"
+                fontWeight={700}
+                letterSpacing="0.05em"
+                color="text.secondary"
+            >
+                {eyebrow}
+            </Typography>
+        </Stack>
 
-            <PageEyebrowText variant="overline">{eyebrow}</PageEyebrowText>
-        </PageEyebrowContainer>
-
-        <PageHeading>
+        <Stack component="h1" spacing={{ xs: 0.75, sm: 1 }} m={0} p={0}>
             {heading.map((line, index) => (
                 <PageHeadingLine
                     key={`${line.text}-${index}`}
@@ -33,17 +34,27 @@ const PageIntro = ({
                     {line.text}
                 </PageHeadingLine>
             ))}
-        </PageHeading>
+        </Stack>
 
-        {description && <PageDescription>{description}</PageDescription>}
+        {description && (
+            <Typography
+                mt={3}
+                maxWidth={680}
+                color="text.secondary"
+                fontSize="1.5rem"
+                lineHeight={1.6}
+            >
+                {description}
+            </Typography>
+        )}
 
         {(actions || children) && (
-            <PageActions direction="row" flexWrap="wrap" gap={2}>
+            <Stack direction="row" flexWrap="wrap" gap={2} mt={8}>
                 {actions}
                 {children}
-            </PageActions>
+            </Stack>
         )}
-    </PageIntroContainer>
+    </Stack>
 );
 
 export default PageIntro;

@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import { Box } from '@mui/material';
 
 import NotFoundIllustration from '@assets/images/404-illustration.webp';
-import { AppButton, DesktopActions, PageIntro } from '@components';
+import { AppButton, PageIntro } from '@components';
 import { PageLayout } from '@layouts';
 
 const NotFoundPage = () => {
@@ -21,7 +22,7 @@ const NotFoundPage = () => {
     return (
         <PageLayout
             image={NotFoundIllustration}
-            container={true}
+            container
             mobileActions={homeButton}
         >
             <PageIntro
@@ -31,7 +32,9 @@ const NotFoundPage = () => {
                     { text: "DOESN'T EXIST", outlined: true },
                 ]}
                 description="Looks like this route took a wrong turn. Let's get you back to discovering developers."
-                actions={<DesktopActions>{homeButton}</DesktopActions>}
+                actions={
+                    <Box display={{ xs: 'none', sm: 'flex' }}>{homeButton}</Box>
+                }
             />
         </PageLayout>
     );

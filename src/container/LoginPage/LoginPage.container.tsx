@@ -1,10 +1,10 @@
+import { Stack } from '@mui/material';
+
 import FlowersAndCloud from '@assets/images/FlowersAndCloud.webp';
 import { PageIntro } from '@components';
 import { LoginCard } from '@container';
 import { usePatLogin } from '@hooks';
 import { PageLayout } from '@layouts';
-
-import { LoginSection } from './LoginPage.styles';
 
 const LoginPageContainer = () => {
     const {
@@ -22,7 +22,19 @@ const LoginPageContainer = () => {
     } = usePatLogin();
 
     return (
-        <LoginSection as="section">
+        <Stack
+            component="section"
+            direction={{ xs: 'column', md: 'row' }}
+            alignItems="center"
+            justifyContent={{ xs: 'center', md: 'space-between' }}
+            gap={4}
+            width="100%"
+            maxWidth={1536}
+            minHeight="85vh"
+            mx="auto"
+            p={{ xs: 2, sm: 4 }}
+            boxSizing="border-box"
+        >
             <PageLayout image={FlowersAndCloud} imageAlt="">
                 <PageIntro
                     eyebrow="PEOPLE · PROJECTS · CODE"
@@ -48,7 +60,7 @@ const LoginPageContainer = () => {
                 onSubmit={(event) => void handleSubmit(event)}
                 onContinueWithGitHub={handleContinueWithGitHub}
             />
-        </LoginSection>
+        </Stack>
     );
 };
 

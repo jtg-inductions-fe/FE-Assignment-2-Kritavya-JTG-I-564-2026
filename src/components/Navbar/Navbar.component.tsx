@@ -1,6 +1,6 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { IconButton, Tooltip } from '@mui/material';
+import { IconButton, Tooltip, Typography } from '@mui/material';
 
 import { AppButton, AppMenu } from '@components';
 import { useNavbar } from '@hooks';
@@ -8,7 +8,6 @@ import { useNavbar } from '@hooks';
 import {
     StyledAppBar,
     StyledBrand,
-    StyledBrandTitle,
     StyledProfileAvatar,
     StyledToolBar,
 } from './Navbar.styles';
@@ -31,9 +30,14 @@ const Navbar = ({ isAuthenticated = false, avatarUrl }: NavigationBarProps) => {
                 <StyledBrand onClick={handleHomeClick}>
                     <GitHubIcon fontSize="large" />
 
-                    <StyledBrandTitle variant="h4">
+                    <Typography
+                        variant="h4"
+                        fontFamily="Azonix"
+                        pt={1.5}
+                        display={{ xs: 'none', sm: 'block' }}
+                    >
                         GitHub Explorer
-                    </StyledBrandTitle>
+                    </Typography>
                 </StyledBrand>
 
                 {!isAuthenticated ? (

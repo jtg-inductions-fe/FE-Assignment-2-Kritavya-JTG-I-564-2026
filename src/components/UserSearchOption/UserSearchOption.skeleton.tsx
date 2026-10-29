@@ -1,7 +1,7 @@
 import { Skeleton, Stack } from '@mui/material';
 
-import { SkeletonRow, SkeletonText } from './UserSearchOption.styles';
-import { UserSearchOptionSkeletonProps } from './UserSearchOption.types';
+import { SkeletonRow } from './UserSearchOption.styles';
+import type { UserSearchOptionSkeletonProps } from './UserSearchOption.types';
 
 /**
  * Displays skeleton rows matching the user search option layout.
@@ -14,10 +14,10 @@ const UserSearchOptionSkeleton = ({
             <SkeletonRow key={index}>
                 <Skeleton variant="circular" width={32} height={32} />
 
-                <SkeletonText>
+                <Stack width="100%" minWidth={0} justifyContent="center">
                     <Skeleton variant="text" width={140} height={24} />
                     <Skeleton variant="text" width={80} height={18} />
-                </SkeletonText>
+                </Stack>
             </SkeletonRow>
         ))}
     </Stack>

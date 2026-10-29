@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Button, Toolbar, Typography } from '@mui/material';
+import { AppBar, Avatar, Button, Toolbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const StyledAppBar = styled(AppBar)(
@@ -24,17 +24,6 @@ export const StyledBrand = styled(Button)(
         color: palette.primary.dark,
         textTransform: 'none',
         padding: 0,
-    }),
-);
-
-export const StyledBrandTitle = styled(Typography)(
-    ({ theme: { spacing, breakpoints } }) => ({
-        fontFamily: 'Azonix',
-        paddingTop: spacing(1.5),
-
-        [breakpoints.down('sm')]: {
-            display: 'none',
-        },
     }),
 );
 
