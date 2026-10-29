@@ -5,4 +5,4 @@ export const STORAGE_KEYS = {
 } as const;
 
 export const GITHUB_PAT_DOCS_URL =
-    'https://github.com/settings/tokens/new?scopes=read:user&description=GitHub+Explorer';
+    'https://github.com/settings/tokens/new?scopes=read:user,user:follow&description=GitHub+Explorer';
