@@ -57,11 +57,14 @@ const AppAutocomplete = <T,>({
             onInputChange={handleInputChange}
             onChange={(_event, option) => onOptionSelect(option)}
             slotProps={{
-                listbox: {
-                    style: {
-                        maxHeight: 320,
-                        overflowY: 'auto',
-                    },
+                popper: {
+                    placement: 'bottom-start',
+                    modifiers: [
+                        {
+                            name: 'flip',
+                            enabled: false,
+                        },
+                    ],
                 },
             }}
             renderInput={(params) => (

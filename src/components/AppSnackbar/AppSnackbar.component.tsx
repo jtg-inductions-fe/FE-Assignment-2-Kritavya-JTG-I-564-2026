@@ -1,14 +1,10 @@
+import { Box } from '@mui/material';
 import Slide, { type SlideProps } from '@mui/material/Slide';
 
 import { SNACKBAR_AUTO_HIDE_DURATION } from '@constant';
 import { useAppSnackbar } from '@hooks';
 
-import {
-    StyledSnackbar,
-    StyledSnackbarAlert,
-    StyledSnackbarContainer,
-    StyledSnackbarItem,
-} from './AppSnackbar.styles';
+import { StyledSnackbar, StyledSnackbarAlert } from './AppSnackbar.styles';
 
 const SlideFromRight = (props: SlideProps) => (
     <Slide {...props} direction="left" />
@@ -19,14 +15,26 @@ const AppSnackbar = () => {
         useAppSnackbar();
 
     return (
-        <StyledSnackbarContainer>
+        <Box
+            position="fixed"
+            bottom={{ xs: 2, sm: 6 }}
+            right={{ xs: 2, sm: 6 }}
+            display="flex"
+            flexDirection="column-reverse"
+            alignItems="flex-end"
+            gap={1}
+            style={{ pointerEvents: 'none' }}
+        >
             {snackbars.map((snackbar) => {
                 const onClose = () => handleClose(snackbar.id);
 
                 return (
-                    <StyledSnackbarItem key={snackbar.id}>
+                    <Box
+                        key={snackbar.id}
+                        width="min(400px, calc(100vw - 32px))"
+                        style={{ pointerEvents: 'auto' }}
+                    >
                         <StyledSnackbar
-                            key={snackbar.id}
                             open={!closingIds.includes(snackbar.id)}
                             autoHideDuration={SNACKBAR_AUTO_HIDE_DURATION}
                             onClose={(_, reason) => {
@@ -51,10 +59,10 @@ const AppSnackbar = () => {
                                 {snackbar.message}
                             </StyledSnackbarAlert>
                         </StyledSnackbar>
-                    </StyledSnackbarItem>
+                    </Box>
                 );
             })}
-        </StyledSnackbarContainer>
+        </Box>
     );
 };
 

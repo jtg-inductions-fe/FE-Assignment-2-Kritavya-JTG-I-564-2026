@@ -1,5 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
+import { Box } from '@mui/material';
 import type { AutocompleteProps } from '@mui/material/Autocomplete';
 
 import FlowersAndCloud from '@assets/images/FlowersAndCloud.webp';
@@ -13,8 +14,6 @@ import {
 import { useUserSearch, useUserSearchResults } from '@hooks';
 import { PageLayout } from '@layouts';
 import type { GitHubUserOption } from '@services';
-
-import { HeroSearch, HeroSection } from './HomePage.styles';
 
 const HomePageContainer = () => {
     const {
@@ -70,7 +69,7 @@ const HomePageContainer = () => {
     };
 
     return (
-        <HeroSection as="section">
+        <Box component="section" width="100%" maxWidth={1440} mx="auto" pt={4}>
             <PageLayout image={FlowersAndCloud} imageAlt="">
                 <PageIntro
                     eyebrow="DEVELOPERS · PROJECTS · POSSIBILITIES"
@@ -82,7 +81,7 @@ const HomePageContainer = () => {
                     description="Explore developers, discover projects, and learn from the people building the web."
                 />
 
-                <HeroSearch>
+                <Box width="100%" mt={4}>
                     <AppAutocomplete<GitHubUserOption>
                         options={listOptions}
                         inputValue={inputValue}
@@ -111,9 +110,9 @@ const HomePageContainer = () => {
                     {isError && (
                         <AppButton onClick={handleRetry}>Retry</AppButton>
                     )}
-                </HeroSearch>
+                </Box>
             </PageLayout>
-        </HeroSection>
+        </Box>
     );
 };
 

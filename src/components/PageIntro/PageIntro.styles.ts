@@ -1,15 +1,7 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-import { PageHeadingLineProps } from './PageIntro.types';
-
-export const PageIntroContainer = styled(Stack)({
-    width: '100%',
-});
-
-export const PageEyebrowContainer = styled(Stack)(({ theme: { spacing } }) => ({
-    marginBottom: spacing(3),
-}));
+import type { PageHeadingLineProps } from './PageIntro.types';
 
 export const PageEyebrowAccent = styled(Box)(({ theme: { palette } }) => ({
     width: 32,
@@ -17,26 +9,6 @@ export const PageEyebrowAccent = styled(Box)(({ theme: { palette } }) => ({
     flexShrink: 0,
     backgroundColor: palette.secondary.main,
     borderRadius: '9999px',
-}));
-
-export const PageEyebrowText = styled(Typography)(({ theme: { palette } }) => ({
-    fontSize: '1.375rem',
-    lineHeight: '2rem',
-    fontWeight: 700,
-    letterSpacing: '0.05em',
-    color: palette.text.secondary,
-}));
-
-export const PageHeading = styled('h1')(({ theme: { breakpoints } }) => ({
-    margin: 0,
-    padding: 0,
-    display: 'flex',
-    flexDirection: 'column',
-    rowGap: 0.75,
-
-    [breakpoints.up('sm')]: {
-        rowGap: 1,
-    },
 }));
 
 export const PageHeadingLine = styled('span', {
@@ -62,25 +34,3 @@ export const PageHeadingLine = styled('span', {
         },
     }),
 );
-
-export const PageDescription = styled(Typography)(
-    ({ theme: { spacing, palette } }) => ({
-        marginTop: spacing(3),
-        maxWidth: 680,
-        color: palette.text.secondary,
-        fontSize: '1.5rem',
-        lineHeight: 1.6,
-    }),
-);
-
-export const PageActions = styled(Stack)(({ theme: { spacing } }) => ({
-    marginTop: spacing(8),
-}));
-
-export const DesktopActions = styled(Box)(({ theme: { breakpoints } }) => ({
-    display: 'flex',
-
-    [breakpoints.down('sm')]: {
-        display: 'none',
-    },
-}));

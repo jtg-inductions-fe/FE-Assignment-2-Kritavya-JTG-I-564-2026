@@ -1,6 +1,5 @@
-import { Menu } from '@mui/material';
+import { Menu, MenuItem, Stack } from '@mui/material';
 
-import { StyledMenuItem } from './AppMenu.styles';
 import type { AppMenuProps } from './AppMenu.types';
 
 const AppMenu = ({ anchorEl, onClose, items, menuProps }: AppMenuProps) => (
@@ -20,7 +19,7 @@ const AppMenu = ({ anchorEl, onClose, items, menuProps }: AppMenuProps) => (
     >
         {items.map(
             ({ label, icon: IconComponent, onClick, disabled, divider }) => (
-                <StyledMenuItem
+                <MenuItem
                     key={label}
                     disabled={disabled}
                     divider={divider}
@@ -29,9 +28,11 @@ const AppMenu = ({ anchorEl, onClose, items, menuProps }: AppMenuProps) => (
                         onClick();
                     }}
                 >
-                    {IconComponent && <IconComponent />}
-                    {label}
-                </StyledMenuItem>
+                    <Stack direction="row" alignItems="center" gap={1.5}>
+                        {IconComponent && <IconComponent />}
+                        {label}
+                    </Stack>
+                </MenuItem>
             ),
         )}
     </Menu>

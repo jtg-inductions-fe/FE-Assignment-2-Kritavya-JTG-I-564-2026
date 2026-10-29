@@ -6,9 +6,11 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import {
+    Box,
     CircularProgress,
     IconButton,
     InputAdornment,
+    Link,
     Stack,
     Typography,
 } from '@mui/material';
@@ -17,9 +19,7 @@ import { AppButton } from '@components';
 
 import {
     ErrorAlert,
-    FormContainer,
     InfoBox,
-    ScopeLink,
     StyledLoginCard,
     StyledLoginCardContent,
     StyledTextField,
@@ -70,7 +70,7 @@ const LoginCard = ({
                 </Typography>
             </Stack>
 
-            <FormContainer onSubmit={onSubmit} noValidate>
+            <Box component="form" width="100%" onSubmit={onSubmit} noValidate>
                 <Stack gap={2.5}>
                     {errorMessage && (
                         <ErrorAlert severity="error">{errorMessage}</ErrorAlert>
@@ -157,16 +157,18 @@ const LoginCard = ({
                     <InfoBox icon={<InfoOutlinedIcon fontSize="small" />}>
                         <Typography variant="body2" color="text.secondary">
                             Use a GitHub Personal Access Token with at least{' '}
-                            <ScopeLink
+                            <Link
                                 href={patDocsUrl}
                                 onClick={(event) => {
                                     event.preventDefault();
                                     onContinueWithGitHub();
                                 }}
                                 underline="hover"
+                                color="primary.main"
+                                fontWeight={600}
                             >
                                 read:user &amp; user:follow
-                            </ScopeLink>{' '}
+                            </Link>{' '}
                             scope.
                         </Typography>
                     </InfoBox>
@@ -185,7 +187,7 @@ const LoginCard = ({
                         {isLoading ? 'Signing In...' : 'Sign In'}
                     </AppButton>
                 </Stack>
-            </FormContainer>
+            </Box>
         </StyledLoginCardContent>
     </StyledLoginCard>
 );

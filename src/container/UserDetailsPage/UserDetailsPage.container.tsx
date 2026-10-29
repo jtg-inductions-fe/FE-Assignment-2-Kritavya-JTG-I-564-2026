@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Alert, Stack, Typography } from '@mui/material';
+import { Alert, Box, Stack, Typography } from '@mui/material';
 
 import {
     AppButton,
@@ -11,10 +11,6 @@ import { ROUTES } from '@constant';
 import { useFollowUser, useUserDetails } from '@hooks';
 import { mapUserDetailsToCardProps } from '@utils';
 
-import {
-    DetailsPageContainer,
-    MessageContainer,
-} from './UserDetailsPage.styles';
 import { UserDetailsPageContainerProps } from './UserDetailsPage.types';
 
 /**
@@ -37,11 +33,23 @@ const UserDetailsPageContainer = ({
 
     if (isNotFound) {
         return (
-            <DetailsPageContainer>
-                <MessageContainer
+            <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                width="100%"
+                minHeight={{ xs: 'auto', sm: '85vh' }}
+                p={{ xs: 2, sm: 3, md: 4 }}
+                boxSizing="border-box"
+            >
+                <Stack
                     alignItems="center"
                     justifyContent="center"
                     gap={2}
+                    width="100%"
+                    textAlign="center"
+                    p={3}
+                    boxSizing="border-box"
                 >
                     <Typography variant="h5">User not found</Typography>
 
@@ -54,18 +62,30 @@ const UserDetailsPageContainer = ({
                     <AppButton onClick={() => void navigate(ROUTES.HOME)}>
                         Back to home
                     </AppButton>
-                </MessageContainer>
-            </DetailsPageContainer>
+                </Stack>
+            </Box>
         );
     }
 
     if (isError) {
         return (
-            <DetailsPageContainer>
-                <MessageContainer
+            <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                width="100%"
+                minHeight={{ xs: 'auto', sm: '85vh' }}
+                p={{ xs: 2, sm: 3, md: 4 }}
+                boxSizing="border-box"
+            >
+                <Stack
                     alignItems="center"
                     justifyContent="center"
                     gap={2}
+                    width="100%"
+                    textAlign="center"
+                    p={3}
+                    boxSizing="border-box"
                 >
                     <Alert severity="error">
                         {errorMessage ||
@@ -86,21 +106,37 @@ const UserDetailsPageContainer = ({
                             Back to home
                         </AppButton>
                     </Stack>
-                </MessageContainer>
-            </DetailsPageContainer>
+                </Stack>
+            </Box>
         );
     }
 
     if (isLoading) {
         return (
-            <DetailsPageContainer>
+            <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                width="100%"
+                minHeight={{ xs: 'auto', sm: '85vh' }}
+                p={{ xs: 2, sm: 3, md: 4 }}
+                boxSizing="border-box"
+            >
                 <UserDetailsCardSkeleton />
-            </DetailsPageContainer>
+            </Box>
         );
     }
 
     return (
-        <DetailsPageContainer>
+        <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            width="100%"
+            minHeight={{ xs: 'auto', sm: '85vh' }}
+            p={{ xs: 2, sm: 3, md: 4 }}
+            boxSizing="border-box"
+        >
             <UserDetailsCard
                 {...mapUserDetailsToCardProps(user, memberSince)}
                 showFollowButton={follow.showFollowButton}
@@ -108,7 +144,7 @@ const UserDetailsPageContainer = ({
                 isFollowLoading={follow.isFollowLoading}
                 onFollowToggle={() => void follow.handleFollowToggle()}
             />
-        </DetailsPageContainer>
+        </Box>
     );
 };
 

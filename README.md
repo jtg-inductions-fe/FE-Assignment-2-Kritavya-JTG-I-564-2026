@@ -1,4 +1,4 @@
-## React Base Template
+## GitHub Explorer
 
 ## Getting Started
 

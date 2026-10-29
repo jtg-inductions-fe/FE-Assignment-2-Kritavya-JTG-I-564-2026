@@ -1,4 +1,4 @@
-import { Alert, Card, CardContent, Link, TextField } from '@mui/material';
+import { Alert, Card, CardContent, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const StyledLoginCard = styled(Card)(
@@ -30,10 +30,6 @@ export const StyledLoginCardContent = styled(CardContent)(
     }),
 );
 
-export const FormContainer = styled('form')({
-    width: '100%',
-});
-
 export const StyledTextField = styled(TextField)(
     ({ theme: { palette, spacing } }) => ({
         borderRadius: spacing(2.5),
@@ -51,11 +47,6 @@ export const InfoBox = styled(Alert)(({ theme: { palette, spacing } }) => ({
     '& .MuiAlert-icon': {
         color: palette.primary.main,
     },
-}));
-
-export const ScopeLink = styled(Link)(({ theme: { palette } }) => ({
-    color: palette.primary.main,
-    fontWeight: 600,
 }));
 
 export const ErrorAlert = styled(Alert)(({ theme: { spacing } }) => ({
